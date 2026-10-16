@@ -113,8 +113,8 @@ const DownLoadPage = () => {
           <div>
             <Image
               src={"/images/homepage/download/users-image.png"}
-              width={150}
-              height={10}
+              width={180}
+              height={46}
               alt="People already using zedu"
             />
           </div>
