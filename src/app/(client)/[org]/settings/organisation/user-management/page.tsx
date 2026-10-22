@@ -68,8 +68,19 @@ const Page = () => {
         (item: any) => item.status === "invited"
       );
       setInvitesData(invitedOnly);
-      setInvitesTotalPages(response?.data?.pagination?.total_pages || 0);
-      setInvitesTotalItems(invitedOnly.length);
+      const pagination = response?.data?.pagination;
+      const totalPages =
+        pagination?.total_pages ??
+        pagination?.totalPages ??
+        (pagination?.total
+          ? Math.ceil(pagination.total / limit)
+          : pagination?.total_count
+          ? Math.ceil(pagination.total_count / limit)
+          : allInvites.length >= limit
+          ? invitesPage + 1
+          : Math.max(invitesPage, 1));
+      setInvitesTotalPages(totalPages);
+      setInvitesTotalItems(pagination?.total ?? invitedOnly.length);
     }
     setIsInvitesLoading(false);
   }, [invitesPage, invitesSearch, invitesRole]);
@@ -84,6 +95,10 @@ const Page = () => {
 
   const handleInviteSuccess = (newInvites: any[]) => {
     setInvitesData((prev) => [...newInvites, ...prev]);
+  };
+
+  const handleInviteDeleted = (deletedId: string) => {
+    setInvitesData((prev) => prev.filter((item) => item.id !== deletedId));
   };
 
   const handleMemberRoleUpdated = (memberId: string, roleName: string) => {
@@ -179,6 +194,7 @@ const Page = () => {
                 setInvitesRole(val);
                 setInvitesPage(1);
               }}
+              onInviteDeleted={handleInviteDeleted}
               pagination={{
                 pageIndex: invitesPage - 1,
                 pageSize: limit,

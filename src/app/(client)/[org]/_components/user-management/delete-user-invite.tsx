@@ -17,12 +17,14 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   selectedMember: Member | null;
+  onInviteDeleted?: (id: string) => void;
 }
 
 const DeleteMemberInviteModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   selectedMember,
+  onInviteDeleted,
 }) => {
   const [buttonLoading, setButtonLoading] = useState(false);
 
@@ -41,6 +43,10 @@ const DeleteMemberInviteModal: React.FC<ModalProps> = ({
         (invite: any) => invite.id !== invite_id
       );
       dispatch({ type: ACTIONS.ORG_INVITES, payload: newInvites });
+      dispatch({ type: ACTIONS.ORG_CALLBACK, payload: !state.orgCallback });
+      if (invite_id && onInviteDeleted) {
+        onInviteDeleted(invite_id);
+      }
       onClose();
     }
 

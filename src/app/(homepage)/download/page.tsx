@@ -228,8 +228,9 @@ const DownLoadPage = () => {
             Stay focused with a full learning workspace on your computer
           </p>
           <ArrowBtn
-            text="Download for Desktop"
-            hideArrow={false}
+            text="Desktop App (Coming Soon)"
+            hideArrow={true}
+            disabled={true}
             className="!px-6 !py-2.5"
           />
 

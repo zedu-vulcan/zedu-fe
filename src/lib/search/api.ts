@@ -43,6 +43,7 @@ export async function searchMessages(
 
   const params = new URLSearchParams({
     query,
+    sortby: filters.sortBy || "relevance",
     sortBy: filters.sortBy || "relevance",
   });
 
@@ -76,6 +77,7 @@ export async function searchChannelMessages(
 
   const params = new URLSearchParams({
     query: trimmed,
+    sortby: sortBy || "relevance",
     sortBy: sortBy || "relevance",
   });
 

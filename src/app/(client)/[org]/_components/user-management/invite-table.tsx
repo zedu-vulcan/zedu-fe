@@ -315,6 +315,7 @@ interface InviteTableProps {
   isLoading: boolean;
   onSearchChange: (value: string) => void;
   onRoleChange?: (value: string) => void;
+  onInviteDeleted?: (id: string) => void;
   pagination: {
     pageIndex: number;
     pageSize: number;
@@ -329,6 +330,7 @@ export default function InviteTable({
   isLoading = false,
   onSearchChange,
   onRoleChange,
+  onInviteDeleted,
   pagination,
 }: InviteTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -536,6 +538,7 @@ export default function InviteTable({
         isOpen={isOpenRestrictMemberModal}
         onClose={() => setIsOpenRestrictMemberModal(false)}
         selectedMember={selectedMember}
+        onInviteDeleted={onInviteDeleted}
       />
 
       {invitesData.length > 0 || searchValue !== "" ? (
