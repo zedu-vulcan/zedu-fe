@@ -38,7 +38,7 @@ const NotificationPage = () => {
       );
       if (res.status === 200 || res.status === 201) {
         const data = res.data.data;
-        const [from, to] = data.time_range.split(" - ").map(convertTo24Hour);
+        const [from, to] = parseTimeRange(data?.time_range);
 
         setPrefs({
           notificationType: getNotifyType(data.notify_about),
@@ -81,6 +81,22 @@ const NotificationPage = () => {
     if (suffix === "PM" && h !== 12) h += 12;
     if (suffix === "AM" && h === 12) h = 0;
     return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
+  };
+
+  // A missing or malformed saved window falls back to the whole day instead
+  // of throwing, so the page always finishes loading.
+  const parseTimeRange = (timeRange: unknown): [string, string] => {
+    const fallback: [string, string] = ["00:00", "23:59"];
+    if (typeof timeRange !== "string") return fallback;
+    const parts = timeRange.split(" - ");
+    if (parts.length !== 2) return fallback;
+    try {
+      const [from, to] = parts.map(convertTo24Hour);
+      const valid = /^\d{2}:\d{2}$/;
+      return valid.test(from) && valid.test(to) ? [from, to] : fallback;
+    } catch {
+      return fallback;
+    }
   };
 
   const handleSave = async () => {
