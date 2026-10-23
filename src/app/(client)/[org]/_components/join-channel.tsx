@@ -5,6 +5,7 @@ import Loading from "~/components/ui/loading";
 import { ACTIONS } from "~/store/Actions";
 import { DataContext } from "~/store/GlobalState";
 import { PostRequest } from "~/utils/new-request";
+import { getStoredUser } from "~/utils/stored-user";
 
 const JoinChannel = () => {
   const { state, dispatch } = useContext(DataContext);
@@ -21,10 +22,10 @@ const JoinChannel = () => {
   const handleJoin = async () => {
     setButtonloading(true);
 
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const user = getStoredUser();
 
     const res = await PostRequest(`/channels/${id}/join`, {
-      username: user?.username,
+      username: user.username,
     });
     if (res?.status === 200 || res?.status === 200) {
       dispatch({
