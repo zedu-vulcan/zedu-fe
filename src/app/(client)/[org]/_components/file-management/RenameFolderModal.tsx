@@ -71,7 +71,10 @@ const RenameFolderModal: React.FC<RenameFolderModalProps> = ({
               className="px-6 mt-2 w-full"
             >
               <input
-                {...register("rename", { required: true, validate: (value) => value.trim().length > 0 })}
+                {...register("rename", {
+                  required: true,
+                  validate: (value) => value.trim().length > 0,
+                })}
                 type="text"
                 className="w-[324px] border border-[#7141F8] outline-[#7141F8] px-3 py-2  rounded-lg"
               />
