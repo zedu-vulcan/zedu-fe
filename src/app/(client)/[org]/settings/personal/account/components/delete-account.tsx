@@ -91,7 +91,7 @@ const DeleteAccount = () => {
         <div className="p-6 pt-3 space-y-3">
           <h3 className="text-sm font-medium">
             Are you sure you want to leave{" "}
-            <span className="text-blue-100 font-medium">
+            <span className="text-blue-700 font-semibold">
               {state?.orgData?.name}
             </span>
             ? You will lose:
