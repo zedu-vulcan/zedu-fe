@@ -5,7 +5,7 @@ import { ACTIONS } from "~/store/Actions";
 import { GetRequest } from "~/utils/new-request";
 
 const PAGE_LIMIT = 50;
-const SEARCH_DEBOUNCE_MS = 2000;
+const SEARCH_DEBOUNCE_MS = 300;
 
 type OrgUsersPagination = {
   loadedPage: number;
@@ -123,6 +123,7 @@ export const useOrganisationUsers = (
   const [searchTotalItems, setSearchTotalItems] = useState(0);
   const searchPageRef = useRef(0);
   const searchInflightRef = useRef<Set<number>>(new Set());
+  const activeSearchQueryRef = useRef(trimmedDebounced);
 
   const orgMembersRef = useRef(state.orgMembers);
   const prevOrgIdRef = useRef(orgId);
@@ -218,6 +219,7 @@ export const useOrganisationUsers = (
         );
 
         if (response?.status === 200 || response?.status === 201) {
+          if (activeSearchQueryRef.current !== query) return;
           const newUsers = response?.data?.data || [];
           const pagination = normalizePagination(response?.data?.pagination);
 
@@ -290,6 +292,7 @@ export const useOrganisationUsers = (
 
     searchPageRef.current = 0;
     searchInflightRef.current.clear();
+    activeSearchQueryRef.current = debouncedSearch.trim();
     setSearchUsers([]);
     setSearchHasMore(true);
     setSearchTotalItems(0);
