@@ -75,9 +75,9 @@ const MenuDropdown = ({ isOpen, onClose }: MenuDropdownProps) => {
 
         const orgSlug = state?.orgSlug || (params?.org as string);
         if (orgSlug) {
-          router.push(`/${orgSlug}/home`);
+          router.push(`/${orgSlug}`);
         } else {
-          router.push("/home");
+          router.push("/");
         }
       } else {
         showError(
