@@ -17,6 +17,7 @@ import { DataContext } from "~/store/GlobalState";
 import { PostRequest } from "~/utils/new-request";
 import Loading from "~/components/ui/loading";
 import { useRBAC } from "~/hooks/useRBAC";
+import { showError, showSuccess } from "~/components/toast/sonner";
 
 interface MenuDropdownProps {
   isOpen: boolean;
@@ -62,15 +63,35 @@ const MenuDropdown = ({ isOpen, onClose }: MenuDropdownProps) => {
   const handleLeave = async () => {
     setButtonLoading(true);
 
-    const res = await PostRequest(`/channels/${id}/leave`, {});
-    if (res?.status === 200 || res?.status === 201) {
-      dispatch({
-        type: ACTIONS.LEAVE_CALLBACK,
-        payload: !state?.leaveCallback,
-      });
-      onClose();
+    try {
+      const res = await PostRequest(`/channels/${id}/leave`, {});
+      if (res?.status === 200 || res?.status === 201) {
+        showSuccess(res?.data?.message || "Left channel successfully");
+        dispatch({
+          type: ACTIONS.LEAVE_CALLBACK,
+          payload: !state?.leaveCallback,
+        });
+        onClose();
+
+        const orgSlug = state?.orgSlug || (params?.org as string);
+        if (orgSlug) {
+          router.push(`/${orgSlug}/home`);
+        } else {
+          router.push("/home");
+        }
+      } else {
+        showError(
+          res?.data?.message || res?.message || "Failed to leave channel"
+        );
+      }
+    } catch (error: any) {
+      showError(
+        error?.message ||
+          "An unexpected error occurred while leaving the channel"
+      );
+    } finally {
+      setButtonLoading(false);
     }
-    setButtonLoading(false);
   };
 
   const handleOpenExport = (event: ReactMouseEvent) => {
