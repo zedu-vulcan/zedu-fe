@@ -350,7 +350,7 @@ export const useOrganisationUsers = (
     ? isDebouncing
       ? []
       : searchUsers
-    : state.orgMembers ?? [];
+    : (state.orgMembers ?? []);
 
   return {
     loading: hasSearchInput ? isDebouncing || searchLoading : loading,
