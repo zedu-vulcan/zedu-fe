@@ -1,8 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "~/lib/env-urls";
 
-const FALLBACK_SITE_URL = "https://zedu.chat";
-
 type PublicPage = {
   path: string;
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
@@ -45,7 +43,7 @@ const PUBLIC_PAGES: PublicPage[] = [
  * every public page instead of relying on internal links.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = siteUrl() || FALLBACK_SITE_URL;
+  const base = siteUrl();
   const lastModified = new Date();
 
   return PUBLIC_PAGES.map(({ path, changeFrequency, priority }) => ({
