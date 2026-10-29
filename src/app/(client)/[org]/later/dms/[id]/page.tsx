@@ -33,10 +33,10 @@ const ChatPage = () => {
       }
     };
 
-    if (orgId) {
+    if (orgId && id) {
       getUser();
     }
-  }, []);
+  }, [id, orgId]);
 
   // send message
   const handleSendMessage = async (
