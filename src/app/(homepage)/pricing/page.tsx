@@ -60,9 +60,64 @@ export const metadata: Metadata = {
   },
 };
 
+const pricingStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Zedu",
+  url: siteUrl("/pricing"),
+  applicationCategory: "EducationalApplication",
+  operatingSystem: "All",
+  browserRequirements: "Requires JavaScript and HTML5 support",
+  description:
+    "Zedu is an AI-assisted structured communication and collaboration platform designed for schools, universities, and cohort-based bootcamps.",
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Starter Plan",
+      description: "Best for small classes and educators starting with Zedu.",
+      price: "0",
+      priceCurrency: "NGN",
+      url: siteUrl("/auth/sign-up"),
+      category: "Free",
+    },
+    {
+      "@type": "Offer",
+      name: "Pro Plan",
+      description:
+        "Best for bootcamps and structured programs needing unlimited cohorts and AI study assistants.",
+      price: "20000",
+      priceCurrency: "NGN",
+      url: siteUrl("/client/settings/organisation/billing/all-plans"),
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "20000",
+        priceCurrency: "NGN",
+        billingIncrement: "P1M",
+      },
+    },
+    {
+      "@type": "Offer",
+      name: "Enterprise Plan",
+      description:
+        "Flexible pricing for Universities, large programs, and institutions requiring advanced AI agents and custom integrations.",
+      url: siteUrl("/contact-sales"),
+      businessFunction: "http://purl.org/goodrelations/v1#ProvideService",
+    },
+  ],
+};
+
 const PricingPage = () => {
   return (
     <div className="space-y-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(pricingStructuredData).replace(
+            /</g,
+            "\\u003c"
+          ),
+        }}
+      />
       <PricingSection showSubtitle />
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12 space-y-6 relative">
