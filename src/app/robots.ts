@@ -23,7 +23,6 @@ export default function robots(): MetadataRoute.Robots {
           "/accept_org_invitation",
           "/*/home/",
           "/api/",
-          "/mainapp/",
         ],
       },
     ],
