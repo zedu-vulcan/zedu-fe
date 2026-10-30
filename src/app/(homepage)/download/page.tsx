@@ -5,6 +5,7 @@ import { ArrowBtn, DownloadAppBtn } from "../_components/ui/Button";
 import FeatureCard from "../_components/FeatureCard";
 import { DynamicFooter } from "../_components/footer/dynamic-footer";
 import { appStoreUrl, playStoreUrl } from "~/lib/env-urls";
+import { getDownloadStructuredData } from "../_lib/downloadStructuredData";
 
 const APP_STORE_URL = appStoreUrl();
 const PLAY_STORE_URL = playStoreUrl();
@@ -82,9 +83,17 @@ const DownLoadPage = () => {
     },
   ];
 
+  const structuredData = JSON.stringify(getDownloadStructuredData()).replace(
+    /</g,
+    "\\u003c"
+  );
+
   return (
     <div className="min-h-screen">
-      {" "}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: structuredData }}
+      />{" "}
       <section className="relative isolate flex w-full flex-col items-center gap-4 overflow-hidden px-4 pt-10 text-center sm:gap-6 sm:px-8 sm:pt-16  lg:gap-8 lg:px-12 text-white bg-primary-500 rounded-b-[3rem] mt-5">
         <h1 className="text-3xl font-semibold leading-tight text-white sm:text-5xl md:text-6xl text-center">
           Learn anywhere with Zedu
@@ -93,7 +102,7 @@ const DownLoadPage = () => {
           Join your classes, connect with others, and access everything right
           from your phone.
         </p>
-        <div className="flex w-full max-w-md flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
+        <div className="flex w-full max-w-xl flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
           {" "}
           <DownloadAppBtn
             text="Download on the"
@@ -174,7 +183,6 @@ const DownLoadPage = () => {
                 href={APP_STORE_URL}
                 dark
                 iconColor="#FFFFFF"
-                className="!px-4 !py-2 sm:!px-5"
               />
               <DownloadAppBtn
                 text="GET IT ON"
@@ -183,7 +191,6 @@ const DownLoadPage = () => {
                 href={PLAY_STORE_URL}
                 dark
                 iconColor="#FFFFFF"
-                className="!px-4 !py-2 sm:!px-5"
               />
             </div>
 
