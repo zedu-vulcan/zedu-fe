@@ -1,15 +1,6 @@
 import Link from "next/link";
 
-export const metadata = {
-  title: "Move Your Class from WhatsApp/Telegram to Zedu",
-  description:
-    "Is your class group a mess of lost messages and buried files? Learn how to move from WhatsApp or Telegram to organised channels on Zedu, step by step.",
-  alternates: {
-    canonical: "/resources/moving-your-class-from-whatsapp-telegram-to-zedu",
-  },
-};
-
-const GuidePage = () => {
+const MovingFromWhatsappTelegramGuide = () => {
   return (
     <section className="px-4 py-12 max-w-4xl mx-auto">
       <header className="mb-8 text-center">
@@ -217,4 +208,4 @@ const GuidePage = () => {
   );
 };
 
-export default GuidePage;
+export default MovingFromWhatsappTelegramGuide;
