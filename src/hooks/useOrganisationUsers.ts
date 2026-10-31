@@ -5,7 +5,7 @@ import { ACTIONS } from "~/store/Actions";
 import { GetRequest } from "~/utils/new-request";
 
 const PAGE_LIMIT = 50;
-const SEARCH_DEBOUNCE_MS = 2000;
+const SEARCH_DEBOUNCE_MS = 300;
 
 type OrgUsersPagination = {
   loadedPage: number;
