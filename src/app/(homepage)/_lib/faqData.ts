@@ -70,7 +70,8 @@ export const pricingFAQs: HomeFAQ[] = [
   },
   {
     id: "pricing-faq-5",
-    question: "Do you offer discounts for schools, non-profits, or student clubs?",
+    question:
+      "Do you offer discounts for schools, non-profits, or student clubs?",
     answer:
       "Yes. We offer special educational rates and grants for accredited K-12 schools, registered non-profit educational initiatives, and student-run hackathons. Contact our sales team with proof of non-profit or institutional affiliation to apply.",
   },
