@@ -36,6 +36,7 @@ const EditOrganisationDialog = ({ isOpen, onClose }: any) => {
     setName(user?.name);
     setType(user?.type);
     setAvatar(user?.logo_url);
+    setImage("");
 
     if (user?.country && countries.length > 0) {
       const matchedCountry = countries?.find(
@@ -61,6 +62,13 @@ const EditOrganisationDialog = ({ isOpen, onClose }: any) => {
 
     setButtonLoading(true);
 
+    let logo_url = "";
+    if (image) {
+      logo_url = image;
+    } else if (typeof avatar === "string" && !avatar.startsWith("blob:")) {
+      logo_url = avatar;
+    }
+
     let payload = {
       name,
       description: "company description",
@@ -68,7 +76,7 @@ const EditOrganisationDialog = ({ isOpen, onClose }: any) => {
       type,
       location: "location",
       country: country?.value,
-      logo_url: typeof avatar === "string" ? image : "",
+      logo_url,
     };
 
     const res = await PutRequest(`/organisations/${orgId}`, payload);
@@ -76,6 +84,8 @@ const EditOrganisationDialog = ({ isOpen, onClose }: any) => {
       dispatch({ type: ACTIONS.CALLBACK, payload: !state?.callback });
       showSuccess(res?.data.message);
       onClose();
+    } else {
+      showError(res?.data?.message || "Failed to update organisation details");
     }
     setButtonLoading(false);
   };
@@ -101,6 +111,7 @@ const EditOrganisationDialog = ({ isOpen, onClose }: any) => {
 
   const handleRemovePhoto = async () => {
     setAvatar("");
+    setImage("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
