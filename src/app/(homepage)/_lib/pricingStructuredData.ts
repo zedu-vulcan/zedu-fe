@@ -46,7 +46,7 @@ export function getPricingStructuredData(faqs: HomeFAQ[] = pricingFAQs) {
       },
       {
         "@type": "FAQPage",
-        "@id": siteUrl("/pricing#faq"),
+        "@id": siteUrl("/pricing#help-center"),
         mainEntity: faqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,
