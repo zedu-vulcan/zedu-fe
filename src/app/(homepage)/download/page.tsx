@@ -229,11 +229,14 @@ const DownLoadPage = () => {
           <p className="text-center text-xs text-neutral-500 sm:text-sm">
             Stay focused with a full learning workspace on your computer
           </p>
-          <ArrowBtn
-            text="Download for Desktop"
-            hideArrow={false}
-            className="!px-6 !py-2.5"
-          />
+         <button
+  type="button"
+  disabled
+  className="bg-neutral-200 text-neutral-500 px-6 py-2.5 font-medium rounded-full cursor-not-allowed transition-colors"
+  title="Desktop app coming soon"
+>
+  Download for Desktop (Coming Soon)
+</button>
 
           <div className="w-full">
             <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/8]">
