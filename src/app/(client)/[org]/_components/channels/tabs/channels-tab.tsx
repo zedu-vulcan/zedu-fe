@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { search } from "~/utils/filter";
 import { Channel } from "~/types/channel";
 import { PostRequest } from "~/utils/new-request";
+import { getStoredUser } from "~/utils/stored-user";
 import Loading from "~/components/ui/loading";
 
 /**
@@ -149,7 +150,7 @@ export default function ChannelsTab() {
       dispatch({ type: ACTIONS.CHANNEL_NAME, payload: channel.name });
     }
 
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const user = getStoredUser();
 
     const res = await PostRequest(`/channels/${id}/join`, {
       username: user?.username,
