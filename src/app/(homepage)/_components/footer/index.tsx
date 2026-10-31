@@ -155,10 +155,11 @@ const Footer = () => {
       setEmail("");
       setError("");
       toast({
-        description: "Email sent successfully!",
+        title: "Subscribed!",
+        description: "You're now signed up for our newsletter.",
       });
     } else {
-      setError(req?.data?.message);
+      setError(req?.data?.message || "Something went wrong. Please try again.");
       return;
     }
   };
