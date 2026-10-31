@@ -290,7 +290,12 @@ const ReplyMessages = ({
               onOpenChange={setIsEmojiPickerOpen}
             >
               <PopoverTrigger asChild>
-                <button className="py-[7px] px-[10px] hover:bg-gray-200 rounded">
+                <button
+                  type="button"
+                  aria-label="Add reaction"
+                  title="Add reaction"
+                  className="py-[7px] px-[10px] hover:bg-gray-200 rounded"
+                >
                   <SmilePlus size={18} className="text-[#667085]" />
                 </button>
               </PopoverTrigger>
@@ -307,6 +312,9 @@ const ReplyMessages = ({
 
           {isSaved ? (
             <button
+              type="button"
+              aria-label="Remove from saved items"
+              title="Remove from saved items"
               onClick={toggleRemove}
               className="py-[7px] px-[10px] hover:bg-gray-200 rounded"
             >
@@ -314,6 +322,9 @@ const ReplyMessages = ({
             </button>
           ) : (
             <button
+              type="button"
+              aria-label="Save reply"
+              title="Save reply"
               onClick={toggleSave}
               className="py-[7px] px-[10px] hover:bg-gray-200 rounded"
             >
@@ -334,7 +345,12 @@ const ReplyMessages = ({
                 onOpenChange={setIsEmojiPickerOpen}
               >
                 <PopoverTrigger asChild>
-                  <button className="py-[7px] px-[10px] hover:bg-gray-200 rounded">
+                  <button
+                    type="button"
+                    aria-label="Add reaction"
+                    title="Add reaction"
+                    className="py-[7px] px-[10px] hover:bg-gray-200 rounded"
+                  >
                     <SmilePlus size={18} className="text-[#667085]" />
                   </button>
                 </PopoverTrigger>
@@ -351,6 +367,9 @@ const ReplyMessages = ({
 
             {isSaved ? (
               <button
+                type="button"
+                aria-label="Remove from saved items"
+                title="Remove from saved items"
                 onClick={toggleRemove}
                 className="py-[7px] px-[10px] hover:bg-gray-200 rounded"
               >
@@ -358,6 +377,9 @@ const ReplyMessages = ({
               </button>
             ) : (
               <button
+                type="button"
+                aria-label="Save reply"
+                title="Save reply"
                 onClick={toggleSave}
                 className="py-[7px] px-[10px] hover:bg-gray-200 rounded"
               >

@@ -14,7 +14,7 @@ import {
 interface RenameFolderModalProps {
   isOpen: boolean;
   onClose: () => void;
-  // eslint-disable-next-line no-unused-vars
+
   onRename: (newName: string) => void;
   oldName: string;
 }
@@ -42,6 +42,9 @@ const RenameFolderModal: React.FC<RenameFolderModalProps> = ({
 
   const handleRename = (data: RenameFolderFormData) => {
     const newName = data.rename.trim();
+    if (!newName) {
+      return;
+    }
     if (newName === oldName) {
       onClose();
       return;
@@ -68,7 +71,10 @@ const RenameFolderModal: React.FC<RenameFolderModalProps> = ({
               className="px-6 mt-2 w-full"
             >
               <input
-                {...register("rename", { required: true })}
+                {...register("rename", {
+                  required: true,
+                  validate: (value) => value.trim().length > 0,
+                })}
                 type="text"
                 className="w-[324px] border border-[#7141F8] outline-[#7141F8] px-3 py-2  rounded-lg"
               />
@@ -79,6 +85,7 @@ const RenameFolderModal: React.FC<RenameFolderModalProps> = ({
               )}
               <div className="place-self-end mt-5 ">
                 <button
+                  type="button"
                   className="px-4 py-2 text-sm bg-transparent border border-[#D0D5DD] text-[#344054] rounded-lg mr-2"
                   onClick={onClose}
                 >
