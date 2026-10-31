@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import { ogImageUrl, siteUrl } from "~/lib/env-urls";
 
-const title = "Sign up for Zedu - Free for Bootcamps, Schools and Cohorts";
+const title = "Sign up | Zedu";
 const description =
   "Create a free Zedu account and bring your cohort, class or learning community into one organised workspace. No credit card needed.";
 
