@@ -11,34 +11,62 @@ let sharedClient: Centrifuge | null = null;
 const subscriptionRefCounts = new Map<string, number>();
 
 export async function getConnectionToken(): Promise<string> {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
   const token = localStorage.getItem("token") || "";
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/token/connection`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  return response.data.data.token;
+  if (!token) {
+    return "";
+  }
+
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/token/connection`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response?.data?.data?.token || "";
+  } catch (error) {
+    console.error("Failed to fetch Centrifugo connection token:", error);
+    return "";
+  }
 }
 
 export async function getSubscriptionToken(channel: string): Promise<string> {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
   const token = localStorage.getItem("token") || "";
+  if (!token) {
+    return "";
+  }
 
-  const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/token/subscription`,
-    { channel },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/token/subscription`,
+      { channel },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  return response.data.data.token;
+    return response?.data?.data?.token || "";
+  } catch (error) {
+    console.error(
+      `Failed to fetch Centrifugo subscription token for channel "${channel}":`,
+      error
+    );
+    return "";
+  }
 }
 
 export function getSharedCentrifuge(): Centrifuge {
