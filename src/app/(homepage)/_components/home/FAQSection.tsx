@@ -7,11 +7,17 @@ import { FAQAccordionItem } from "./faq/FAQAccordionItem";
 
 type FAQSectionProps = {
   faqs?: HomeFAQ[];
+  title?: React.ReactNode;
+  subtitle?: string;
+  headingTag?: "h1" | "h2";
   answerFragments?: Record<string, string>;
 };
 
 export const FAQSection = ({
   faqs = homeFAQs,
+  title,
+  subtitle = "Need clarity? We have clear, practical answers to help you move forward with confidence.",
+  headingTag = "h2",
   answerFragments,
 }: FAQSectionProps) => {
   const [openItem, setOpenItem] = useState<string | null>(null);
@@ -61,17 +67,22 @@ export const FAQSection = ({
     setOpenItem(value || null);
   };
 
+  const HeadingComponent = headingTag;
+
   return (
     <section className="relative isolate flex w-full flex-col items-center gap-10 overflow-hidden px-4 py-12 text-center sm:px-8 sm:py-16 lg:px-12">
       <div className="flex flex-col items-center gap-3">
-        <h2 className="text-center text-2xl font-semibold leading-tight text-neutral-900 sm:text-3xl md:text-4xl">
-          Got a Question?{" "}
-          <span className="text-primary-500">We Have an Answer</span>
-        </h2>
-        <p className="text-sm text-neutral-600 sm:text-base">
-          Need clarity? We have clear, practical answers to help you move
-          forward with confidence.
-        </p>
+        <HeadingComponent className="text-center text-2xl font-semibold leading-tight text-neutral-900 sm:text-3xl md:text-4xl">
+          {title || (
+            <>
+              Got a Question?{" "}
+              <span className="text-primary-500">We Have an Answer</span>
+            </>
+          )}
+        </HeadingComponent>
+        {subtitle ? (
+          <p className="text-sm text-neutral-600 sm:text-base">{subtitle}</p>
+        ) : null}
       </div>
       <div className="w-full max-w-4xl text-left">
         <Accordion

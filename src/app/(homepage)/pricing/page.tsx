@@ -9,8 +9,9 @@ import {
   pricingComparisonDemoSections,
   pricingComparisonPlans,
 } from "../_lib/pricingComparisonData";
-import { CircleHelp } from "lucide-react";
+import { pricingFAQs } from "../_lib/faqData";
 import { getPricingStructuredData } from "../_lib/pricingStructuredData";
+import { CircleHelp } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -120,7 +121,17 @@ const PricingPage = () => {
       </div>
 
       <div id="help-center">
-        <FAQSection />
+        <FAQSection
+          faqs={pricingFAQs}
+          title={
+            <>
+              Got Questions About{" "}
+              <span className="text-primary-500">Pricing & Plans?</span>
+            </>
+          }
+          subtitle="Everything you need to know about billing cycles, student cohorts, AI credits, and institution discounts."
+          headingTag="h2"
+        />
       </div>
 
       <DynamicFooter
