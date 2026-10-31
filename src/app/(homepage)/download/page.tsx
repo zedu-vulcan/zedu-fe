@@ -5,15 +5,12 @@ import { ArrowBtn, DownloadAppBtn } from "../_components/ui/Button";
 import FeatureCard from "../_components/FeatureCard";
 import { DynamicFooter } from "../_components/footer/dynamic-footer";
 import { appStoreUrl, playStoreUrl } from "~/lib/env-urls";
-import { getDownloadStructuredData } from "../_lib/downloadStructuredData";
 
 const APP_STORE_URL = appStoreUrl();
 const PLAY_STORE_URL = playStoreUrl();
 
 export const metadata: Metadata = {
-  title: {
-    absolute: "Download Zedu App | Mobile and Desktop Learning Workspace",
-  },
+  title: "Download Zedu App | Mobile and Desktop Learning Workspace",
   description:
     "Download Zedu on iOS, Android, and desktop. Join classes, chat with peers, manage files, and stay updated in one connected learning workspace.",
   keywords: [
@@ -85,17 +82,9 @@ const DownLoadPage = () => {
     },
   ];
 
-  const structuredData = JSON.stringify(getDownloadStructuredData()).replace(
-    /</g,
-    "\\u003c"
-  );
-
   return (
     <div className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: structuredData }}
-      />{" "}
+      {" "}
       <section className="relative isolate flex w-full flex-col items-center gap-4 overflow-hidden px-4 pt-10 text-center sm:gap-6 sm:px-8 sm:pt-16  lg:gap-8 lg:px-12 text-white bg-primary-500 rounded-b-[3rem] mt-5">
         <h1 className="text-3xl font-semibold leading-tight text-white sm:text-5xl md:text-6xl text-center">
           Learn anywhere with Zedu
@@ -148,9 +137,9 @@ const DownLoadPage = () => {
       </section>
       <section className="relative isolate flex w-full flex-col items-center gap-5 overflow-hidden px-4 py-12 text-center sm:gap-6 sm:px-8 sm:py-16 lg:gap-8 lg:px-12">
         <div className="flex flex-col gap-3 items-center">
-          <h2 className=" text-2xl font-semibold leading-tight text-neutral-900 sm:text-3xl md:text-4xl text-center">
+          <h1 className=" text-2xl font-semibold leading-tight text-neutral-900 sm:text-3xl md:text-4xl text-center">
             Everything you need, In One App
-          </h2>
+          </h1>
           <p className="max-w-[95%] text-sm text-neutral-600 sm:max-w-[90%] sm:text-base md:max-w-[85%] lg:max-w-[65%] lg:text-lg">
             Zedu combines communication, file sharing, and scheduling into a
             single, easy-to-use platform.
