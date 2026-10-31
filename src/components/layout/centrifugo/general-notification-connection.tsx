@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { useParams, usePathname } from "next/navigation";
 import images from "~/assets/images";
 import { showInfo } from "~/components/toast/sonner";
+import { getStoredUser } from "~/utils/stored-user";
 import { playBuzzParticipantJoinSound } from "~/lib/buzz/play-join-sound";
 import {
   registerNotificationBadge,
@@ -61,8 +62,8 @@ export default function GeneralNotificationConnection() {
 
   // centrifugo connection for notification
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if (!orgId || !user?.id) return;
+    const user = getStoredUser();
+    if (!orgId || !user.id) return;
 
     const channel = `${orgId}/${user.id}`;
     const centrifugeClient = getSharedCentrifuge();

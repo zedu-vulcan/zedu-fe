@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import { ogImageUrl, siteUrl } from "~/lib/env-urls";
 import Image from "next/image";
-import { ArrowBtn, OutlineBtn } from "../../_components/ui/Button";
+import { ArrowBtn } from "../../_components/ui/Button";
 import { FeaturedCard } from "../../_components/ui/FeaturedCard";
 import { DynamicFooter } from "../../_components/footer/dynamic-footer";
 import { FAQSection } from "../../_components/home/FAQSection";
 import type { HomeFAQ } from "../../_lib/faqData";
 
 export const metadata: Metadata = {
-  title: "File Management",
+  title: "File Management for Classes and Cohorts",
   description:
     "Manage course files in one structured workspace with Zedu File Management. Organize resources, share securely, and collaborate across classes, cohorts, and departments.",
   keywords: [
@@ -166,13 +166,12 @@ const FileManagementProductsPage = () => {
             linkToHome
             className="justify-center"
           />
-          <OutlineBtn text="Watch demo" />
         </div>
         <div className="w-full max-w-6xl overflow-hidden rounded-2xl">
           <div className="relative aspect-[16/10]  w-full sm:aspect-[16/9] lg:aspect-[2/1] ">
             <Image
               src="/images/homepage/products/files-hero.png"
-              alt="Preview of the learning communication interface"
+              alt="Zedu file management interface showing course materials, lecture folders, and shared class resources"
               fill
               priority
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 92vw, 1200px"
@@ -182,9 +181,9 @@ const FileManagementProductsPage = () => {
         </div>
       </section>
       <section className="relative isolate flex w-full flex-col items-center gap-4 overflow-hidden px-4 py-10 text-center sm:gap-6 sm:px-8 sm:py-16  lg:gap-8 lg:px-12">
-        <h1 className="text-2xl font-semibold leading-tight text-neutral-900 sm:text-4xl md:text-5xl text-center">
+        <h2 className="text-2xl font-semibold leading-tight text-neutral-900 sm:text-4xl md:text-5xl text-center">
           Organize and Collaborate on Learning Files
-        </h1>
+        </h2>
         <p className="max-w-[95%] text-xs text-neutral-600 sm:max-w-[90%] sm:text-base md:max-w-[65%] lg:max-w-[45%] lg:text-lg">
           Structure course materials and work together seamlessly in one
           connected workspace
@@ -213,9 +212,9 @@ const FileManagementProductsPage = () => {
               <div
                 className={`flex flex-col items-start gap-5 text-left ${index % 2 !== 0 ? "lg:order-1" : ""}`}
               >
-                <h2 className="text-2xl font-semibold leading-tight text-neutral-900 sm:text-3xl lg:text-4xl">
+                <h3 className="text-2xl font-semibold leading-tight text-neutral-900 sm:text-3xl lg:text-4xl">
                   {card.title}
-                </h2>
+                </h3>
 
                 <ul className="list-disc space-y-2 pl-5 text-sm text-neutral-600 marker:text-primary-500 sm:text-base">
                   {card.points.map((point) => (
@@ -230,9 +229,9 @@ const FileManagementProductsPage = () => {
         </div>
       </section>
       <section className="relative isolate flex w-full flex-col items-center gap-4 overflow-hidden px-4 py-10 text-center sm:gap-6 sm:px-8 sm:py-16  lg:gap-8 lg:px-12">
-        <h1 className="text-2xl font-semibold leading-tight text-neutral-900 sm:text-4xl md:text-5xl text-center">
+        <h2 className="text-2xl font-semibold leading-tight text-neutral-900 sm:text-4xl md:text-5xl text-center">
           Smart, Secure, and Scalable File Management
-        </h1>
+        </h2>
         <p className="max-w-[95%] text-xs text-neutral-600 sm:max-w-[90%] sm:text-base md:max-w-[65%] lg:max-w-[45%] lg:text-lg">
           Zedu brings together powerful search, secure sharing, and education
           focused workflows into one system
@@ -255,10 +254,10 @@ const FileManagementProductsPage = () => {
       </section>
       <section className="relative isolate overflow-hidden space-y-10 px-4 py-10 sm:px-6 sm:py-14 lg:px-10 lg:py-16 mt-5 bg-blue-50/30">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="text-3xl font-semibold leading-tight text-[#1f2530] sm:text-4xl lg:text-[44px] text-center lg:leading-[1.12]">
+          <h2 className="text-3xl font-semibold leading-tight text-[#1f2530] sm:text-4xl lg:text-[44px] text-center lg:leading-[1.12]">
             Connected to the{" "}
             <span className="text-primary-500">Rest of Zedu</span>
-          </h1>
+          </h2>
           <p className="max-w-[95%] text-center text-xs text-neutral-600 sm:max-w-[90%] sm:text-base md:max-w-[65%] lg:max-w-[45%] lg:text-lg">
             File management integrates seamlessly with other features.
           </p>

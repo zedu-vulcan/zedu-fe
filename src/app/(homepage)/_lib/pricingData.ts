@@ -12,6 +12,7 @@ export type PricingCardData = {
   title: string;
   description: string;
   amount: string;
+  monthlyPrice?: number;
   periodLabel?: string;
   footnote?: string;
   features: PricingFeature[];
@@ -25,6 +26,7 @@ export type PricingCardData = {
 const staticPricingCards: PricingCardData[] = [
   {
     key: "starter",
+    monthlyPrice: 0,
     title: "Starter",
     description: "Best for small classes and educators starting with Zedu.",
     amount: "₦0",
@@ -45,6 +47,7 @@ const staticPricingCards: PricingCardData[] = [
   },
   {
     key: "pro",
+    monthlyPrice: 20000,
     title: "Pro",
     description: "Best for bootcamps and structured programs.",
     amount: "₦20K",
