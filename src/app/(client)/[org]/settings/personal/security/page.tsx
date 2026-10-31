@@ -6,6 +6,7 @@ import SettingsLabel from "../../components/settings-label";
 import ChangePassword from "./components/change-password";
 import { Button } from "~/components/ui/button";
 import { GetRequest } from "~/utils/new-request";
+import { getStoredUser } from "~/utils/stored-user";
 import moment from "moment";
 import {
   Table,
@@ -45,7 +46,8 @@ const SecurityPage = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const user = getStoredUser();
+    if (!user.id) return;
     const getData = async () => {
       const res = await GetRequest(
         `/users/${user?.id}/login-audit?page=${currentPage}&limit=${itemsPerPage}`

@@ -751,27 +751,26 @@ const FileExplorer: React.FC<FileExplorerProps> = ({ viewType, folderId }) => {
   };
 
   const handleRenameFile = async (fileId: string, newName: string) => {
-    const fileInfo = files?.find((file) => file.id === fileId);
-    if (fileInfo) {
-      try {
-        const response = await PutRequest(`/files/file/${fileId}`, {
-          file_name: newName,
-        });
-        if (response?.status === 200 || response?.status === 201) {
-          fileDetailsCache.current.delete(fileId);
-          setModalState({ type: null });
-          showSuccess(`File renamed successfully to "${newName}"`);
-          fetchFiles();
-        } else {
-          showError("Failed to rename file");
-        }
-      } catch (error: any) {
-        const message =
-          error?.response?.data?.message ||
-          error?.response?.data?.error ||
-          "An error occurred while renaming the file";
-        showError(message);
+    if (!fileId) return;
+
+    try {
+      const response = await PutRequest(`/files/file/${fileId}`, {
+        file_name: newName,
+      });
+      if (response?.status === 200 || response?.status === 201) {
+        fileDetailsCache.current.delete(fileId);
+        setModalState({ type: null });
+        showSuccess(`File renamed successfully to "${newName}"`);
+        fetchFiles();
+      } else {
+        showError("Failed to rename file");
       }
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        "An error occurred while renaming the file";
+      showError(message);
     }
   };
 

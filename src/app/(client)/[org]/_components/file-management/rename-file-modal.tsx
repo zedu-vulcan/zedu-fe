@@ -13,7 +13,7 @@ import {
 interface RenameFileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  // eslint-disable-next-line no-unused-vars
+
   onRename: (value: string) => void;
   oldName: string;
 }
@@ -33,11 +33,18 @@ const RenameFileModal: React.FC<RenameFileModalProps> = ({
     formState: { errors },
     handleSubmit,
     watch,
+    reset,
   } = useForm<RenameFileFormData>({
     defaultValues: {
       rename: oldName,
     },
   });
+
+  React.useEffect(() => {
+    if (isOpen) {
+      reset({ rename: oldName });
+    }
+  }, [oldName, isOpen, reset]);
 
   const handleRename = (data: RenameFileFormData) => {
     const newName = data.rename.trim();

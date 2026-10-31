@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Loading from "~/components/ui/loading";
 import { SessionRequest } from "~/utils/new-request";
+import { showError } from "~/components/toast/sonner";
 
 const AutoLogin = () => {
   const router = useRouter();
@@ -13,22 +14,38 @@ const AutoLogin = () => {
   // verify the session id
   useEffect(() => {
     const verifySession = async () => {
-      const res = await SessionRequest("/users/me", sessionId as string);
-      if (res.status === 200 || res.status === 201) {
-        const user = res?.data?.data?.user;
-        localStorage.setItem("token", sessionId as string);
-        localStorage.setItem("useremail", user?.email);
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("orgId", user?.current_org);
-        const orgSlug = user?.current_organisation_slug;
-        if (orgSlug) {
-          localStorage.setItem("orgSlug", orgSlug);
+      if (!sessionId) {
+        showError("Invalid or missing session. Please sign in.");
+        router.push("/auth/login");
+        return;
+      }
+
+      try {
+        const res = await SessionRequest("/users/me", sessionId);
+        if (res?.status === 200 || res?.status === 201) {
+          const user = res?.data?.data?.user;
+          localStorage.setItem("token", sessionId);
+          localStorage.setItem("useremail", user?.email);
+          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("orgId", user?.current_org);
+          const orgSlug = user?.current_organisation_slug;
+          if (orgSlug) {
+            localStorage.setItem("orgSlug", orgSlug);
+          }
+          router.push(orgSlug ? `/${orgSlug}` : "/client");
+        } else {
+          showError(
+            res?.data?.message || "Invalid or expired session. Please sign in."
+          );
+          router.push("/auth/login");
         }
-        router.push(orgSlug ? `/${orgSlug}` : "/client");
+      } catch {
+        showError("An error occurred during authentication. Please sign in.");
+        router.push("/auth/login");
       }
     };
     verifySession();
-  }, [sessionId]);
+  }, [sessionId, router]);
 
   return (
     <section className="w-full text-center md:w-[55%] flex flex-col max-w-xs md:max-w-lg mx-auto items-start pt-[30px]">
