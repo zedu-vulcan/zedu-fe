@@ -11,6 +11,7 @@
       "src/app/(client)/[org]/_components/",
       "src/app/(homepage)/_components/",
       "src/app/(homepage)/contributors/",
+      "src/app/(homepage)/for/",
       "src/app/(client)/[org]/settings/",
       "src/app/(auth)/",
       "src/app/(accept_general_invitation)/",
