@@ -17,7 +17,7 @@ const PoweredByZedu = ({ className }: PoweredByZeduProps) => {
         className
       )}
     >
-      <Image src="/TelexIcon.svg" alt="" width={12} height={15} />
+      <Image src="/Zedu.png" alt="" width={12} height={15} />
       <span className="text-xs text-gray-500">Powered by</span>
       <span className="text-xs font-bold text-primary-500">Zedu</span>
     </a>

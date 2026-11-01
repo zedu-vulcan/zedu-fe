@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Meet the amazing members of the Zedu Osprey team who helped build Zedu.",
   icons: {
-    icon: "/TelexIcon.svg",
+    icon: "/Zedu.png",
   },
   alternates: {
     canonical: siteUrl("/contributors/zedu-osprey"),

@@ -112,7 +112,7 @@ const CreateOrganization: React.FC = () => {
       <div className="w-full max-w-2xl mx-auto">
         <div className="mt-10 mb-10 mx-auto">
           <div className="flex gap-2 justify-center md:hidden mb-20">
-            <Image src="/TelexIcon.svg" alt="Icon" width={40} height={40} />
+            <Image src="/Zedu.png" alt="Icon" width={40} height={40} />
             <h1 className="font-semibold text-2xl text-center flex justify-center items-center">
               Zedu
             </h1>

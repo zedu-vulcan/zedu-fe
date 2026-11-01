@@ -34,7 +34,7 @@ const Welcome = () => {
       <section className="w-full max-w-2xl px-5 mx-auto">
         <div className="flex flex-col justify-center items-center mt-20">
           <div className="flex gap-2 justify-center">
-            <Image src="/TelexIcon.svg" alt="Icon" width={40} height={40} />
+            <Image src="/Zedu.png" alt="Icon" width={40} height={40} />
             <h1 className="font-semibold text-4xl text-center flex justify-center items-center max-lg:text-2xl">
               Zedu
             </h1>

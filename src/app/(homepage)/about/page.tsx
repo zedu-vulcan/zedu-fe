@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "educator-first technology",
   ],
   icons: {
-    icon: "/TelexIcon.svg",
+    icon: "/Zedu.png",
   },
   openGraph: {
     title: "About Zedu - Structured Learning Communication Built for Education",

@@ -291,6 +291,7 @@ const Footer = () => {
               <span className="font-semibold leading-none tracking-[-0.02em] ">
                 © 2026 Zedu. All Rights Reserved
               </span>
+              <span className="text-xs text-white/70">Zedu is by Telex</span>
               <Link
                 href="mailto:contact@zedu.chat"
                 className="text-[14px] leading-none font-normal text-white/85 transition-all hover:underline sm:text-[16px]"

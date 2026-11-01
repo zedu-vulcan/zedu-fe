@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Zedu learning workspace",
   ],
   icons: {
-    icon: "/TelexIcon.svg",
+    icon: "/Zedu.png",
   },
   openGraph: {
     title: `${TEAM_NAME} Contributors | HNG 15 Internship`,

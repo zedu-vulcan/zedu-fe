@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "Meet Team Zedu-Gannet — contributors building collaborative learning experiences on Zedu.",
   icons: {
-    icon: "/TelexIcon.svg",
+    icon: "/Zedu.png",
   },
   alternates: {
     canonical: siteUrl("/contributors/zedu-gannet"),

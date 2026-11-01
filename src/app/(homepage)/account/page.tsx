@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "delete personal data",
   ],
   icons: {
-    icon: "/TelexIcon.svg",
+    icon: "/Zedu.png",
   },
   openGraph: {
     title: "Account Deletion - Zedu",

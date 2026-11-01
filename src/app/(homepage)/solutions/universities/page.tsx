@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "Zedu universities",
   ],
   icons: {
-    icon: "/TelexIcon.svg",
+    icon: "/Zedu.png",
   },
   openGraph: {
     title: "Zedu for Universities - Structured Communication at Scale",
