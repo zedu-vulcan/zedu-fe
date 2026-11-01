@@ -179,6 +179,8 @@ const Footer = () => {
 
   //
 
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="flex flex-col bg-[#303073] text-[#fafafa] px-6">
       <div className="mx-auto w-full max-w-[1300px] py-8 sm:py-12">
@@ -358,7 +360,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-col gap-1 text-white/95">
               <span className="font-semibold leading-none tracking-[-0.02em]">
-                © 2026 Zedu. All Rights Reserved
+                © {currentYear} Zedu. All Rights Reserved
               </span>
               <Link
                 href="mailto:contact@zedu.chat"
