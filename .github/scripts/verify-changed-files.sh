@@ -28,7 +28,7 @@ FORBIDDEN_PATTERNS=(
 ALLOWED_EXTENSIONS=(
   '.ts' '.tsx' '.js' '.jsx' '.mjs' '.cjs'
   '.json' '.yaml' '.yml' '.md' '.mdx'
-  '.css' '.scss' '.html' '.svg' '.png' '.jpg' '.jpeg' '.gif' '.webp' '.ico'
+  '.css' '.scss' '.html' '.svg' '.png' '.jpg' '.jpeg' '.jfif' '.gif' '.webp' '.ico'
   '.woff' '.woff2' '.ttf' '.eot'
   '.sh' '.toml' '.cjs' '.txt' '.csv'
 )
@@ -59,7 +59,7 @@ for file in "${CHANGED[@]}"; do
     if file "$file" | grep -q "executable"; then
       mime=$(file -b "$file")
       if echo "$mime" | grep -Eiq 'executable|binary|archive|compressed'; then
-        if [[ ! "$file" =~ \.(png|jpg|jpeg|gif|webp|ico|woff2?|ttf|eot)$ ]]; then
+        if [[ ! "$file" =~ \.(png|jpg|jpeg|jfif|gif|webp|ico|woff2?|ttf|eot)$ ]]; then
           ext="${file##*.}"
           allowed=false
           for allowed_ext in "${ALLOWED_EXTENSIONS[@]}"; do
