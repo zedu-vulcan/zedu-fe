@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import { ogImageUrl } from "~/lib/env-urls";
 import { parseInviteCode } from "~/lib/invite";
-import InviteCohortLanding from "./invite-landing";
+import InviteCohortLanding from "./_components/invite-landing";
 
 interface InvitePageProps {
   params: Promise<{ code: string }>;
@@ -56,5 +56,5 @@ export default async function InvitePage({ params }: InvitePageProps) {
   const payload = parseInviteCode(code);
   const inviter = payload?.n?.trim() || FALLBACK_NAME;
 
-  return <InviteCohortLanding code={code} inviter={inviter} />;
+  return React.createElement(InviteCohortLanding, { code, inviter });
 }

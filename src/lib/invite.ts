@@ -7,6 +7,8 @@
  * landing page can show who sent the invite without extra API calls.
  */
 
+import { siteUrl } from "~/lib/env-urls";
+
 export type InvitePayload = {
   /** Inviter's user id */
   u: string;
@@ -144,9 +146,8 @@ export function buildInviteLink(
   const code = buildInviteCode(user);
   if (!code) return null;
   const origin =
-    process.env.NEXT_PUBLIC_CLIENT_URL ||
-    (typeof window !== "undefined" ? window.location.origin : "") ||
-    "https://zedu.chat";
+    siteUrl() || (typeof window !== "undefined" ? window.location.origin : "");
+  if (!origin) return null;
   const medium = options?.utmMedium || "share";
   return `${origin}/invite/${code}?utm_source=invite&utm_medium=${encodeURIComponent(medium)}&utm_campaign=cohort`;
 }
@@ -166,6 +167,13 @@ export function withInviteUtm(path: string): string {
 
 export type ShareNetwork = "whatsapp" | "telegram" | "linkedin" | "email";
 
+/** Share-endpoint bases live in the environment, like the other third-party
+ * URLs in ~/lib/env-urls: when one is not configured the network is offered
+ * nowhere, instead of shipping a hardcoded endpoint nobody can override. */
+function shareBase(name: string): string {
+  return (process.env[name] ?? "").replace(/\/$/, "");
+}
+
 export function shareUrl(
   network: ShareNetwork,
   link: string,
@@ -174,14 +182,22 @@ export function shareUrl(
   const encodedMessage = encodeURIComponent(message);
   const encodedLink = encodeURIComponent(link);
   switch (network) {
-    case "whatsapp":
-      return `https://wa.me/?text=${encodeURIComponent(`${message}`)}`;
-    case "telegram":
-      return `https://t.me/share/url?url=${encodedLink}&text=${encodeURIComponent(
-        message.replace(link, "").trim() || "Join me on Zedu"
-      )}`;
-    case "linkedin":
-      return `https://www.linkedin.com/sharing/share-offsite/?url=${encodedLink}`;
+    case "whatsapp": {
+      const base = shareBase("NEXT_PUBLIC_SHARE_WHATSAPP_URL");
+      return base ? `${base}?text=${encodedMessage}` : "";
+    }
+    case "telegram": {
+      const base = shareBase("NEXT_PUBLIC_SHARE_TELEGRAM_URL");
+      return base
+        ? `${base}?url=${encodedLink}&text=${encodeURIComponent(
+            message.replace(link, "").trim() || "Join me on Zedu"
+          )}`
+        : "";
+    }
+    case "linkedin": {
+      const base = shareBase("NEXT_PUBLIC_SHARE_LINKEDIN_URL");
+      return base ? `${base}?url=${encodedLink}` : "";
+    }
     case "email":
       return `mailto:?subject=${encodeURIComponent("Join me on Zedu")}&body=${encodedMessage}`;
     default:

@@ -48,6 +48,15 @@ const InviteCohortModal: React.FC<InviteCohortModalProps> = ({
   );
   const message = inviteLink ? DEFAULT_INVITE_MESSAGE(inviteLink) : "";
 
+  // Only offer the networks whose share endpoint is configured.
+  const shareTargets = useMemo(
+    () =>
+      SHARE_NETWORKS.filter(({ network }) =>
+        Boolean(inviteLink && shareUrl(network, inviteLink, message))
+      ),
+    [inviteLink, message]
+  );
+
   const handleClose = () => {
     setCopied(false);
     onClose();
@@ -130,25 +139,27 @@ const InviteCohortModal: React.FC<InviteCohortModalProps> = ({
             </div>
           </div>
 
-          <div>
-            <p className="mb-1.5 text-xs font-semibold text-[#344054]">
-              Or share directly
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              {SHARE_NETWORKS.map(({ network, label }) => (
-                <button
-                  key={network}
-                  type="button"
-                  disabled={!inviteLink}
-                  onClick={() => handleShare(network)}
-                  className="flex h-10 items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-3 text-sm font-medium text-[#344054] transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 sm:font-semibold"
-                >
-                  {network === "email" && <Mail size={15} />}
-                  {label}
-                </button>
-              ))}
+          {shareTargets.length > 0 && (
+            <div>
+              <p className="mb-1.5 text-xs font-semibold text-[#344054]">
+                Or share directly
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {shareTargets.map(({ network, label }) => (
+                  <button
+                    key={network}
+                    type="button"
+                    disabled={!inviteLink}
+                    onClick={() => handleShare(network)}
+                    className="flex h-10 items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-3 text-sm font-medium text-[#344054] transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 sm:font-semibold"
+                  >
+                    {network === "email" && <Mail size={15} />}
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div>
             <p className="mb-1.5 text-xs font-semibold text-[#344054]">
