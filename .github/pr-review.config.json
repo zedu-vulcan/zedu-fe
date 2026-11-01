@@ -12,11 +12,13 @@
       "src/app/(homepage)/_components/",
       "src/app/(homepage)/contributors/",
       "src/app/(homepage)/for/",
+      "src/app/(homepage)/resources/",
       "src/app/(client)/[org]/settings/",
       "src/app/(auth)/",
       "src/app/(accept_general_invitation)/",
       "src/app/(accept_org_invitation)/",
       "src/app/(client)/billing/",
+      "src/app/api/",
       "src/emails/"
     ],
     "allowedExactFiles": [
@@ -26,7 +28,10 @@
       "src/app/(client)/[org]/client-layout.tsx",
       "src/app/(homepage)/layout.tsx",
       "src/app/(client)/[org]/home/channels/[id]/settings/page.tsx",
-      "src/app/(client)/[org]/home/channels/[id]/settings/history/page.tsx"
+      "src/app/(client)/[org]/home/channels/[id]/settings/history/page.tsx",
+      "src/app/robots.ts",
+      "src/app/sitemap.ts",
+      "src/app/api/link-preview/route.ts"
     ]
   },
   "reuse": {
