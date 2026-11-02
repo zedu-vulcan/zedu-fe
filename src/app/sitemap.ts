@@ -15,6 +15,7 @@ const PAGES: { path: string; priority: number }[] = [
   { path: "/solutions/universities", priority: 0.8 },
   { path: "/solutions/study-groups", priority: 0.8 },
   { path: "/solutions/tutors", priority: 0.8 },
+  { path: "/solutions/parents", priority: 0.8 },
   { path: "/alternatives", priority: 0.8 },
   { path: "/alternatives/discord-for-schools", priority: 0.8 },
   { path: "/alternatives/google-classroom", priority: 0.8 },
