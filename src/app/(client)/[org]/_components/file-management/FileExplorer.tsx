@@ -370,11 +370,15 @@ const FileExplorer: React.FC<FileExplorerProps> = ({ viewType, folderId }) => {
       const uploaderInfo = userProfileMap.get(file.user_id);
       const userProfilePhoto =
         uploaderInfo?.profile_url ||
+        file.user_profile_photo ||
+        file.owner_avatar ||
         uiAvatarUrl(uploaderInfo?.name || uploaderInfo?.username || "");
       const uploaderDisplayName =
         uploaderInfo?.name ||
         uploaderInfo?.username ||
+        file.uploader_display_name ||
         file.owner ||
+        file.owner_name ||
         "Unknown User";
 
       return {

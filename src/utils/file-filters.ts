@@ -177,6 +177,7 @@ export const mapApiFileToFileDetails = (
       "All Files",
     owner:
       (file.owner as string | undefined) ??
+      (file.owner_name as string | undefined) ??
       (file.uploader_display_name as string | undefined) ??
       "",
     dateModified:
@@ -196,7 +197,9 @@ export const mapApiFileToFileDetails = (
     deletedBy: file.deletedBy as string | undefined,
     dateDeleted: file.dateDeleted as string | undefined,
     backendId: file.backendId as string | undefined,
-    user_profile_photo: file.user_profile_photo as string | undefined,
+    user_profile_photo:
+      (file.user_profile_photo as string | undefined) ??
+      (file.owner_avatar as string | undefined),
     uploader_display_name: file.uploader_display_name as string | undefined,
   };
 };

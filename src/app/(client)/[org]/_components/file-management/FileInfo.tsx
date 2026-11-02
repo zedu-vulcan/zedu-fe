@@ -31,6 +31,8 @@ export interface FileDetails {
   backendId?: string; // Store the actual backend ID for API calls
   user_profile_photo?: string;
   uploader_display_name?: string;
+  owner_name?: string;
+  owner_avatar?: string;
   channel_id?: string;
 }
 
@@ -122,7 +124,10 @@ const FileInfo = ({ file, isOpen, onClose }: FileInfoProps) => {
             <div className="flex justify-between items-start">
               <span className="text-sm text-[#667085]">Owner</span>
               <span className="text-sm text-[#667085] font-medium">
-                {file.uploader_display_name || file.owner}
+                {file.uploader_display_name ||
+                  file.owner_name ||
+                  file.owner ||
+                  "Unknown User"}
               </span>
             </div>
 
