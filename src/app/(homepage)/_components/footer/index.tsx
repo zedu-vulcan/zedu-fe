@@ -33,6 +33,7 @@ const solutionLinks: FooterLink[] = [
   { id: 0, label: "Bootcamps", href: "/solutions/bootcamps" },
   { id: 1, label: "Schools", href: "/solutions/schools" },
   { id: 2, label: "Universities", href: "/solutions/universities" },
+  { id: 3, label: "Parents & Guardians", href: "/for/parents" },
 ];
 
 const supportLinks: FooterLink[] = [
