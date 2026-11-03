@@ -8,6 +8,7 @@ import {
   useState,
   Fragment,
 } from "react";
+import { useDebounce } from "use-debounce";
 import { DataContext } from "~/store/GlobalState";
 import { ACTIONS } from "~/store/Actions";
 import { Loader2, PlusIcon, Search, X } from "lucide-react";
@@ -22,6 +23,8 @@ import UserAvatar from "~/components/layout/user-avatar";
 import { isUserDeactivated } from "~/utils/user-deactivation";
 import { useOrganisationDms } from "~/hooks/useOrganisationDms";
 import { PostRequest } from "~/utils/new-request";
+import { searchUsers } from "~/lib/search/api";
+import type { UserSearchResult } from "~/lib/search/types";
 
 const dedupeDmList = (dms: any[] | undefined) => {
   const seen = new Set<string>();
@@ -131,11 +134,17 @@ export default function DMNav({
 }: any) {
   const { state, dispatch } = useContext(DataContext);
   const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchInput] = useDebounce(searchInput, 300);
+  const [suggestedUsers, setSuggestedUsers] = useState<{
+    query: string;
+    users: UserSearchResult[];
+  }>({ query: "", users: [] });
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;
   const { orgSlug } = state;
   const sidebarScrollRef = useRef<HTMLDivElement | null>(null);
+  const searchRequestRef = useRef(0);
 
   const orgId =
     typeof window !== "undefined" ? localStorage.getItem("orgId") || "" : "";
@@ -206,10 +215,93 @@ export default function DMNav({
     router.push(`/${orgSlug}/home/people/new-chat`);
   };
 
-  const searchData = useMemo(
+  useEffect(() => {
+    const query = debouncedSearchInput.trim();
+    const requestId = ++searchRequestRef.current;
+
+    if (!query || !orgId) {
+      setSuggestedUsers({ query, users: [] });
+      return;
+    }
+
+    searchUsers(orgId, query)
+      .then((users) => {
+        if (requestId === searchRequestRef.current) {
+          setSuggestedUsers({ query, users });
+        }
+      })
+      .catch(() => {
+        if (requestId === searchRequestRef.current) {
+          setSuggestedUsers({ query, users: [] });
+        }
+      });
+
+    return () => {
+      searchRequestRef.current += 1;
+    };
+  }, [debouncedSearchInput, orgId]);
+
+  const localSearchData = useMemo(
     () => filterDmList(state?.dms, searchInput),
     [state?.dms, searchInput]
   );
+
+  const searchData = useMemo(() => {
+    if (
+      !searchInput.trim() ||
+      searchInput.trim() !== debouncedSearchInput.trim() ||
+      suggestedUsers.query !== debouncedSearchInput.trim()
+    ) {
+      return localSearchData;
+    }
+
+    const localParticipantIds = new Set<string>();
+    const localUsernames = new Set<string>();
+    for (const dm of localSearchData) {
+      if (dm?.username) {
+        localUsernames.add(String(dm.username).toLowerCase());
+      }
+
+      const participantIds = [
+        dm?.participant_id,
+        dm?.user_id,
+        dm?.participant?.id,
+        dm?.participant?.user_id,
+        ...(dm?.participants || []).flatMap((participant: any) => [
+          participant?.id,
+          participant?.user_id,
+          participant?.participant_id,
+        ]),
+      ];
+      for (const participantId of participantIds) {
+        if (participantId) localParticipantIds.add(String(participantId));
+      }
+    }
+
+    const suggestedUserIds = new Set<string>();
+    const suggestedRows = suggestedUsers.users
+      .filter((user) => {
+        if (
+          !user.id ||
+          localParticipantIds.has(String(user.id)) ||
+          localUsernames.has(user.username.toLowerCase()) ||
+          suggestedUserIds.has(String(user.id))
+        ) {
+          return false;
+        }
+
+        suggestedUserIds.add(String(user.id));
+        return true;
+      })
+      .map((user) => ({
+        ...user,
+        is_suggested: true,
+        participant_id: user.id,
+        user_type: user.entity_type,
+      }));
+
+    return [...localSearchData, ...suggestedRows];
+  }, [debouncedSearchInput, localSearchData, searchInput, suggestedUsers]);
 
   return (
     <>
@@ -288,8 +380,16 @@ export default function DMNav({
             <div className="flex flex-col">
               {searchData?.map((dm: any, index: number) => {
                 return (
-                  <Fragment key={String(dm.channel_id || dm.channels_id)}>
+                  <Fragment
+                    key={String(
+                      dm.channel_id ||
+                        dm.channels_id ||
+                        dm.participant_id ||
+                        dm.id
+                    )}
+                  >
                     <div
+                      data-testid="dm-list-row"
                       className={`flex items-start gap-3 px-3 py-4 hover:bg-[#4B4BB4] ${dm?.channel_id === id || dm?.channels_id === id ? "bg-[#4B4BB4]" : ""}`}
                       onClick={() =>
                         dm?.is_suggested
@@ -299,7 +399,7 @@ export default function DMNav({
                     >
                       <div className="relative">
                         <UserAvatar item={dm} size="2xs" alt="avatar" />
-                        {!isUserDeactivated(dm) && (
+                        {!dm?.is_suggested && !isUserDeactivated(dm) && (
                           <span
                             className={`absolute -right-1 -bottom-1 ${dm?.participants?.some((p: any) => p.online) ? "bg-[#00AD51]" : "bg-[#F97316]"} w-[8px] h-[8px] rounded-full border border-white`}
                           />
@@ -323,12 +423,17 @@ export default function DMNav({
                             )}
                             <span className="text-[12px] text-[#BABAFB]">
                               {moment(dm.last_read_at).format("LT")}
+                              {!dm?.is_suggested && dm.last_read_at
+                                ? moment(dm.last_read_at).format("LT")
+                                : ""}
                             </span>
                           </div>
                         </div>
-                        <p className="text-[14px] text-[#D0D0FD] break-words max-w-[200px] line-clamp-2">
-                          {stripHtmlTags(dm.preview_message)}
-                        </p>
+                        {!dm?.is_suggested && (
+                          <p className="text-[14px] text-[#D0D0FD] break-words max-w-[200px] line-clamp-2">
+                            {stripHtmlTags(dm.preview_message)}
+                          </p>
+                        )}
                       </div>
                     </div>
                     {index !== searchData?.length - 1 && (
