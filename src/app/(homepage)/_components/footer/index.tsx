@@ -56,11 +56,11 @@ const solutionLinks: FooterLink[] = [
     label: "Universities",
     href: "/solutions/universities",
   },
-    {
-      id: 3,
-      label: "Parents & Guardians",
-      href: "/for/parents",
-    },
+  {
+    id: 3,
+    label: "Parents & Guardians",
+    href: "/for/parents",
+  },
 ];
 
 const supportLinks: FooterLink[] = [
