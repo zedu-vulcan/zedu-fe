@@ -313,29 +313,30 @@ const Header: React.FC = () => {
               ref={menuButtonRef}
               type="button"
               variant="ghost"
+              size="icon"
               aria-label={
                 isOpen ? "Close navigation menu" : "Open navigation menu"
               }
               aria-expanded={isOpen}
               aria-controls="mobile-navigation"
               onClick={toggleMenu}
-              className="relative z-50 flex h-6 w-6 cursor-pointer items-center justify-center p-0 hover:bg-transparent lg:hidden"
+              className="relative z-50 flex shrink-0 cursor-pointer items-center justify-center hover:bg-transparent lg:hidden"
             >
               <span
                 aria-hidden="true"
-                className={`absolute h-0.5 w-full bg-current transition-transform duration-300 ease-in-out ${
+                className={`absolute h-0.5 w-6 bg-current transition-transform duration-300 ease-in-out ${
                   isOpen ? "rotate-45 bg-gray-50" : "-translate-y-1.5"
                 }`}
               />
               <span
                 aria-hidden="true"
-                className={`absolute h-0.5 w-full bg-current transition-opacity duration-300 ease-in-out ${
+                className={`absolute h-0.5 w-6 bg-current transition-opacity duration-300 ease-in-out ${
                   isOpen ? "opacity-0" : "opacity-100"
                 }`}
               />
               <span
                 aria-hidden="true"
-                className={`absolute h-0.5 w-full bg-current transition-transform duration-300 ease-in-out ${
+                className={`absolute h-0.5 w-6 bg-current transition-transform duration-300 ease-in-out ${
                   isOpen ? "-rotate-45 bg-gray-50" : "translate-y-1.5"
                 }`}
               />
