@@ -128,9 +128,10 @@ export default async function CompareDetailPage({ params }: Props) {
     notFound();
   }
 
-  const otherSlug =
-    slug === "zedu-vs-discord" ? "zedu-vs-slack" : "zedu-vs-discord";
-  const otherName = slug === "zedu-vs-discord" ? "Slack" : "Discord";
+  const otherComparisons = allComparisonSlugs
+    .filter((s) => s !== slug)
+    .map((s) => comparisonPages[s])
+    .filter(Boolean);
   const structuredData = JSON.stringify(getStructuredData(data)).replace(
     /</g,
     "\\u003c"
@@ -616,14 +617,19 @@ export default async function CompareDetailPage({ params }: Props) {
           {/* Cross comparison link */}
           <div className="mt-12 text-center">
             <p className="text-xs text-neutral-500 sm:text-sm">
-              Also considering other platforms?{" "}
-              <Link
-                href={`/compare/${otherSlug}`}
-                className="font-semibold text-primary-600 underline hover:text-primary-700"
-              >
-                Check out Zedu vs. {otherName}
-              </Link>
+              Also considering other platforms?
             </p>
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5">
+              {otherComparisons.map((other) => (
+                <Link
+                  key={other.slug}
+                  href={`/compare/${other.slug}`}
+                  className="rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-xs font-semibold text-primary-600 shadow-sm transition hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700"
+                >
+                  Zedu vs. {other.competitorName}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>

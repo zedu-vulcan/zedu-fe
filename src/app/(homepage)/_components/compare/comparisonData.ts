@@ -30,8 +30,12 @@ export interface ComparisonFAQ {
 }
 
 export interface ComparisonPageContent {
-  slug: "zedu-vs-discord" | "zedu-vs-slack";
-  competitorName: "Discord" | "Slack";
+  slug:
+    | "zedu-vs-discord"
+    | "zedu-vs-slack"
+    | "zedu-vs-whatsapp"
+    | "zedu-vs-teams";
+  competitorName: "Discord" | "Slack" | "WhatsApp" | "Microsoft Teams";
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
@@ -582,6 +586,445 @@ export const comparisonPages: Record<string, ComparisonPageContent> = {
     ctaHeading: "Stop Paying Corporate Per-Seat Tax on Students",
     ctaDescription:
       "Switch to Zedu and give your bootcamp an organized, affordable platform with full history retention and built-in Buzz calling.",
+  },
+  "zedu-vs-whatsapp": {
+    slug: "zedu-vs-whatsapp",
+    competitorName: "WhatsApp",
+    metaTitle: "Zedu vs WhatsApp: Why Modern Bootcamps Outgrow Group Chats",
+    metaDescription:
+      "Comparing Zedu and WhatsApp for coding bootcamps, schools, and cohorts. See why dedicated channels, syntax-highlighted code snippets, centralized file repositories, and student privacy beat messy group chats.",
+    keywords: [
+      "WhatsApp alternative for bootcamps",
+      "WhatsApp vs Zedu",
+      "bootcamp communication platform",
+      "WhatsApp alternative for education",
+      "coding cohort chat software",
+      "WhatsApp group alternatives for schools",
+      "developer learning platform",
+    ],
+    heroBadge: "Platform Comparison",
+    heroTitle: "Zedu vs WhatsApp: Why Modern Bootcamps Outgrow Group Chats",
+    heroSubtitle:
+      "WhatsApp connects billions every day and is the default starting point for many academies. But as cohorts grow, infinite unthreaded message streams, lost assignments, missing code syntax highlighting, and privacy concerns create critical friction. Discover why academies upgrade to Zedu.",
+    verdictTitle: "The Quick Verdict",
+    verdictDescription:
+      "Choose WhatsApp for informal family chats, neighborhood groups, and one-on-one personal messaging. Choose Zedu if you run a coding bootcamp, academy, or structured cohort that requires organized module channels, built-in Buzz voice and video calls with screen sharing, syntax-highlighted code snippets, centralized file storage, and private student boundaries.",
+    competitorSummary: {
+      title: "WhatsApp Overview",
+      description:
+        "WhatsApp is the ubiquitous consumer messaging app across Africa and the world, offering instant mobile text messaging and voice notes with zero onboarding friction.",
+      bestFor: "Informal consumer communication and 1-on-1 personal messaging",
+      strengths: [
+        "Installed on virtually every smartphone with zero onboarding hurdle",
+        "Low data consumption on mobile carrier bundles across Africa and emerging markets",
+        "Familiar, frictionless interface for both students and instructors",
+        "End-to-end encrypted direct messaging and personal calls",
+      ],
+      tradeoffs: [
+        "Single unthreaded message stream where announcements, homework, and questions drown in minutes",
+        "No syntax highlighting or native code snippets — code is shared as unreadable phone screenshots",
+        "Personal phone numbers are completely exposed to everyone in the group, creating safety and spam risks",
+        "1,024 member group limit with no hierarchical cohort, track, or project sub-group channels",
+        "Course files, PDFs, and slide decks get buried in individual phone storage galleries",
+      ],
+    },
+    zeduSummary: {
+      title: "Zedu Overview",
+      description:
+        "Zedu is purpose-built for education and developer cohorts, unifying syllabus-aligned channels, syntax-highlighted code snippets, built-in Buzz calling, and centralized file organization in one distraction-free workspace.",
+      bestFor:
+        "Coding bootcamps, developer academies, technical cohorts, and student learning communities",
+      strengths: [
+        "Organized channels for Announcements, Lessons, Assignment Q&A, and Project Groups",
+        "Built-in syntax-highlighted code blocks for JavaScript, Python, Go, Dart, and 30+ languages",
+        "Centralized File Explorer workspace drive for curriculum slides, recordings, and guides",
+        "Protected student privacy: communication stays within organization accounts without exposing personal phone numbers",
+        "Native Buzz audio and video huddles with live screen sharing directly in channels",
+      ],
+      tradeoffs: [
+        "Requires opening the dedicated Zedu app or web browser rather than consumer messaging apps",
+        "Exclusively designed for structured learning organizations, not generic consumer social media",
+      ],
+    },
+    matrix: [
+      {
+        category: "Learning & Cohort Structure",
+        items: [
+          {
+            feature: "Structured Channels & Threading",
+            zedu: {
+              status: true,
+              label: "Multi-Channel Cohorts",
+              description:
+                "Dedicated channels for announcements, syllabus modules, assignment help, and project teams with full threading.",
+            },
+            competitor: {
+              status: false,
+              label: "Single Flat Stream",
+              description:
+                "One continuous group chat where announcements, student chit-chat, and urgent questions collide and get lost.",
+            },
+          },
+          {
+            feature: "Centralized File & Curriculum Repository",
+            zedu: {
+              status: true,
+              label: "Built-in File Explorer",
+              description:
+                "Permanent workspace drive where students can browse course slides, datasets, and guides by module.",
+            },
+            competitor: {
+              status: false,
+              label: "Scattered in Gallery",
+              description:
+                "Documents and PDFs are downloaded to personal phone storage and become impossible to find after a week.",
+            },
+          },
+          {
+            feature: "Syntax-Highlighted Code Snippets",
+            zedu: {
+              status: true,
+              label: "Multi-Language Syntax",
+              description:
+                "Native code blocks with syntax highlighting, line numbers, and copy-paste for Python, JS, Go, Dart, and SQL.",
+            },
+            competitor: {
+              status: false,
+              label: "Unformatted / Screenshots",
+              description:
+                "Code is sent as messy unindented plaintext or blurry camera photos of laptop screens.",
+            },
+          },
+        ],
+      },
+      {
+        category: "Live Collaboration & Communication",
+        items: [
+          {
+            feature: "Built-in Audio & Video Huddles (Buzz)",
+            zedu: {
+              status: true,
+              label: "Native Buzz Calling",
+              description:
+                "Instant voice and video huddles in channels with screen sharing, call timers, and participant controls.",
+            },
+            competitor: {
+              status: "partial",
+              label: "Mobile Video Calls",
+              description:
+                "Supports mobile calls up to 32 participants, but lacks desktop code screen sharing and in-call channel integration.",
+            },
+          },
+          {
+            feature: "Screen Sharing for Code Review",
+            zedu: {
+              status: true,
+              label: "Full Screen Sharing",
+              description:
+                "Share code editors, terminals, and web browser windows during live mentor office hours.",
+            },
+            competitor: {
+              status: "partial",
+              label: "Limited Mobile Mirroring",
+              description:
+                "Screen sharing is cumbersome and drains mobile battery without developer presentation features.",
+            },
+          },
+        ],
+      },
+      {
+        category: "Safety, Privacy & Institutional Control",
+        items: [
+          {
+            feature: "Student Contact Information Privacy",
+            zedu: {
+              status: true,
+              label: "100% Private",
+              description:
+                "Learners sign in with email or Google OAuth. Personal phone numbers are never exposed to classmates or strangers.",
+            },
+            competitor: {
+              status: false,
+              label: "Phone Numbers Exposed",
+              description:
+                "Every student's personal phone number is visible to all group members, leading to spam and privacy complaints.",
+            },
+          },
+          {
+            feature: "Role-Based Moderation & Cohort Archiving",
+            zedu: {
+              status: true,
+              label: "Granular Roles",
+              description:
+                "Assign Instructor, Teaching Assistant, and Student roles with clear posting permissions and cohort archiving.",
+            },
+            competitor: {
+              status: "partial",
+              label: "Group Admin Only",
+              description:
+                "Coarse admin controls; cannot lock specific channels or archive completed cohorts cleanly.",
+            },
+          },
+        ],
+      },
+    ],
+    deepDives: [
+      {
+        title: "Code Formatting: Native Snippets vs Camera Photos",
+        subtitle: "How syntax highlighting transforms programming education",
+        zeduHeading: "Zedu's Developer-First Chat",
+        zeduPoints: [
+          "Students paste code directly into channels with automatic syntax highlighting and line numbers.",
+          "Instructors can quote specific lines in thread replies to debug compilation errors immediately.",
+          "Integrated Monaco code editor and Markdown support make technical learning effortless.",
+        ],
+        competitorHeading: "WhatsApp's Plaintext Barrier",
+        competitorPoints: [
+          "Students resort to taking photos of their laptop screens with their phones and sending compressed images.",
+          "Indentation, tabs, and special characters get stripped or mangled in standard chat messages.",
+          "Mentors waste valuable coaching time asking students to re-type code or email zip archives.",
+        ],
+      },
+      {
+        title: "Privacy and Student Well-Being",
+        subtitle: "Creating a safe, harassment-free learning boundary",
+        zeduHeading: "Zedu's Closed Organizational Boundary",
+        zeduPoints: [
+          "Learners interact using professional student profiles without disclosing personal contact numbers.",
+          "Direct messaging can be monitored or scoped to the enrolled cohort to prevent unsolicited spam.",
+          "Clear audit trail of community interactions ensures student safety and institutional compliance.",
+        ],
+        competitorHeading: "WhatsApp's Open Contact Exposure",
+        competitorPoints: [
+          "Joining a 200-person WhatsApp group exposes every student's personal WhatsApp contact to strangers.",
+          "Female learners frequently report unsolicited private DMs and harassment outside class hours.",
+          "Academy administrators have zero visibility or recourse into abusive private chats between members.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "Why do African bootcamps and academies switch from WhatsApp to Zedu?",
+        answer:
+          "While WhatsApp is great for initial contact, bootcamps quickly run into chaos once teaching begins: assignments get buried in chat noise, code cannot be formatted, student phone numbers are exposed to strangers, and files get scattered. Zedu provides organized cohort channels, syntax-highlighted code snippets, built-in Buzz calling with screen sharing, and student privacy — all on predictable flat pricing.",
+      },
+      {
+        question: "Does Zedu use more mobile data than WhatsApp?",
+        answer:
+          "Zedu is engineered to be lightweight and responsive on standard 3G/4G connections. Text chat and file browsing use minimal bandwidth, and Buzz audio calls are optimized with adaptive bitrate codecs to conserve data.",
+      },
+      {
+        question:
+          "How difficult is it to migrate our learners from WhatsApp to Zedu?",
+        answer:
+          "It takes under 3 minutes. Simply create your Zedu organization, generate an invite link, and post it to your existing WhatsApp group. Students join with one click using their Google account or email.",
+      },
+      {
+        question: "Can we still use WhatsApp alongside Zedu?",
+        answer:
+          "Yes. Many academies keep a broadcast-only WhatsApp group for emergency announcements or reminders, while moving all actual learning, curriculum channels, mentor Q&A, and Buzz live huddles into Zedu.",
+      },
+    ],
+    ctaHeading: "Stop Losing Student Assignments in Noisy Group Chats",
+    ctaDescription:
+      "Upgrade your bootcamp to Zedu today and give your students structured channels, syntax-highlighted code, and built-in Buzz calling.",
+  },
+  "zedu-vs-teams": {
+    slug: "zedu-vs-teams",
+    competitorName: "Microsoft Teams",
+    metaTitle:
+      "Zedu vs Microsoft Teams: Streamlined Cohort Learning vs Enterprise IT Overhead",
+    metaDescription:
+      "Comparing Zedu and Microsoft Teams for higher education, innovation hubs, and coding bootcamps. Discover why purpose-built cohort spaces, instant 60-second setup, and lightweight Buzz calling deliver higher completion rates.",
+    keywords: [
+      "Microsoft Teams alternative for bootcamps",
+      "Teams vs Zedu",
+      "higher ed chat platform",
+      "lightweight Teams alternative",
+      "bootcamp communication software",
+      "education workspace",
+      "Teams alternative for academies",
+    ],
+    heroBadge: "Platform Comparison",
+    heroTitle:
+      "Zedu vs Microsoft Teams: Purpose-Built Cohorts vs Enterprise Overhead",
+    heroSubtitle:
+      "Microsoft Teams dominates corporate offices and legacy university IT departments. But for agile bootcamps, tech academies, and modern student cohorts, Teams' heavy desktop resource footprint, complex multi-tenant administration, and sluggish performance on low-bandwidth connections create friction. Discover why modern educators choose Zedu.",
+    verdictTitle: "The Quick Verdict",
+    verdictDescription:
+      "Choose Microsoft Teams if your institution already has an active enterprise Microsoft 365 license and requires mandatory Active Directory IT compliance and deep SharePoint workflow integrations. Choose Zedu if you need an agile, modern cohort workspace that sets up in 60 seconds, runs smoothly on low-bandwidth networks, and keeps students engaged with built-in Buzz calling, code sharing, and flat cohort economics.",
+    competitorSummary: {
+      title: "Microsoft Teams Overview",
+      description:
+        "Microsoft Teams is the flagship unified communication platform for enterprise corporations and institutional universities integrated into the Microsoft 365 cloud.",
+      bestFor:
+        "Enterprise corporations and legacy university faculty with mandatory M365 IT licensing",
+      strengths: [
+        "Deep integration with Word, Excel, PowerPoint, and SharePoint files",
+        "Enterprise-grade single sign-on with Azure Active Directory policies",
+        "Large-scale live webinars and scheduled institutional video conferencing",
+        "Included in existing institutional Microsoft 365 education bundles",
+      ],
+      tradeoffs: [
+        "Heavy desktop client known for sluggish performance and high RAM/CPU consumption",
+        "Complex multi-tenant guest account switching causes students to miss critical messages",
+        "Formal corporate layout lacks the modern, vibrant feel that technical student cohorts thrive in",
+        "Poor performance on fluctuating mobile and low-bandwidth network connections",
+        "High complexity for external mentors and guest lecturers who need access to specific channels",
+      ],
+    },
+    zeduSummary: {
+      title: "Zedu Overview",
+      description:
+        "Zedu is purpose-built for agile education, bootcamps, and technical academies, providing lightweight performance, instant workspace creation, and native developer collaboration.",
+      bestFor:
+        "Coding bootcamps, tech hubs, private academies, and modern university department cohorts",
+      strengths: [
+        "Lightweight architecture that boots instantly and runs smoothly on low-spec laptops and mobile devices",
+        "60-second setup with zero IT department bureaucracy or complex tenant configurations",
+        "Built-in Buzz voice and video calls with instant screen sharing inside channels",
+        "Native developer features: syntax-highlighted code blocks, Markdown formatting, and file drive",
+        "Seamless guest mentor access without Azure AD license provisioning or guest tenant switching",
+      ],
+      tradeoffs: [
+        "Not bundled into existing corporate Microsoft Office suites",
+        "Focused on real-time cohort collaboration rather than enterprise spreadsheet co-authoring",
+      ],
+    },
+    matrix: [
+      {
+        category: "Performance & Accessibility",
+        items: [
+          {
+            feature: "Client Speed & Resource Footprint",
+            zedu: {
+              status: true,
+              label: "Lightweight & Fast",
+              description:
+                "Consumes minimal RAM and CPU, booting in seconds on entry-level student laptops.",
+            },
+            competitor: {
+              status: false,
+              label: "Heavy Client",
+              description:
+                "Infamous for high RAM and battery drain, causing older student laptops to lag during video calls.",
+            },
+          },
+          {
+            feature: "Low-Bandwidth Mobile Reliability",
+            zedu: {
+              status: true,
+              label: "Optimized for Emerging Networks",
+              description:
+                "Adaptive network synchronization and reconnect recovery engineered for emerging markets.",
+            },
+            competitor: {
+              status: "partial",
+              label: "Broadband Dependent",
+              description:
+                "Requires high sustained bandwidth; frequent call drops and frozen video on fluctuating connections.",
+            },
+          },
+        ],
+      },
+      {
+        category: "Learning & Cohort Experience",
+        items: [
+          {
+            feature: "60-Second Cohort Setup",
+            zedu: {
+              status: true,
+              label: "Instant Creation",
+              description:
+                "Create a new workspace, generate cohort channels, and invite students via link in under 1 minute.",
+            },
+            competitor: {
+              status: false,
+              label: "IT Admin Required",
+              description:
+                "Often requires central IT ticketing, domain group policies, and Microsoft licensing provisioning.",
+            },
+          },
+          {
+            feature: "Developer Code Collaboration",
+            zedu: {
+              status: true,
+              label: "Built-in Syntax Highlighting",
+              description:
+                "Native multi-language code snippets with monospaced rendering and copy buttons.",
+            },
+            competitor: {
+              status: "partial",
+              label: "Basic Code Blocks",
+              description:
+                "Code snippet plugin exists but is clunky and frequently wraps lines awkwardly in channel view.",
+            },
+          },
+        ],
+      },
+      {
+        category: "Economics & Licensing",
+        items: [
+          {
+            feature: "Pricing Model for Independent Academies",
+            zedu: {
+              status: true,
+              label: "Flat Cohort Plans",
+              description:
+                "Predictable cohort pricing in local currencies (NGN / USD) with no hidden per-seat licensing penalties.",
+            },
+            competitor: {
+              status: "partial",
+              label: "Microsoft 365 Tiered Licensing",
+              description:
+                "Requires ongoing enterprise M365 per-user licensing once outside subsidized school agreements.",
+            },
+          },
+        ],
+      },
+    ],
+    deepDives: [
+      {
+        title: "Speed and Student Accessibility",
+        subtitle: "Why lightweight software drives higher course completion",
+        zeduHeading: "Zedu's Fast, Distraction-Free UX",
+        zeduPoints: [
+          "Students open Zedu instantly and jump straight into their cohort discussions without loading screens.",
+          "Runs smoothly on standard 4GB/8GB RAM laptops commonly used by students in tech bootcamps.",
+          "Low-bandwidth data optimization keeps students connected even on mobile hotspot data.",
+        ],
+        competitorHeading: "Teams' Heavy Enterprise Burden",
+        competitorPoints: [
+          "Teams takes 20-30 seconds to boot and often consumes upwards of 1.5GB of RAM in the background.",
+          "Students on entry-level computers experience thermal throttling and lag while running code editors alongside Teams.",
+          "Multi-tenant guest account switching requires logging out and back in to view messages from other hubs.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "Can universities and technical departments switch from Teams to Zedu?",
+        answer:
+          "Yes. Many university computer science departments, developer clubs, and incubator programs adopt Zedu as their dedicated coding and cohort workspace while keeping Teams strictly for formal administrative faculty meetings.",
+      },
+      {
+        question:
+          "How does Zedu's Buzz video compare to Microsoft Teams Meetings?",
+        answer:
+          "Zedu Buzz is designed for interactive learning huddles: launch a call with one click from any channel, share your screen to debug code, manage participants, and chat in real-time — without the heavy meeting scheduling bureaucracy of Teams.",
+      },
+      {
+        question: "Is Zedu easier to administer than Microsoft Teams?",
+        answer:
+          "Significantly easier. You don't need an IT department or Azure Active Directory administrator. Any instructor or program manager can create a workspace, invite members, and configure channels in seconds.",
+      },
+    ],
+    ctaHeading:
+      "Replace Heavy Enterprise Clutter with a Streamlined Cohort Campus",
+    ctaDescription:
+      "Give your learners a fast, lightweight workspace designed specifically for technical education. Try Zedu today.",
   },
 };
 
