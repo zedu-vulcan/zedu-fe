@@ -17,6 +17,7 @@ import { GetRequest, PostRequest } from "~/utils/new-request";
 import { useParams } from "next/navigation";
 import Loading from "~/components/ui/loading";
 import { DataContext } from "~/store/GlobalState";
+import { buildNotificationPreferencePayload } from "./notification-preference-payload";
 
 export default function NotificationSettingsModal() {
   const [open, setOpen] = useState(false);
@@ -63,14 +64,11 @@ export default function NotificationSettingsModal() {
   const handleSave = async () => {
     setButtonLoading(true);
 
-    const payload = {
-      muted: muteChannel,
-      at_mentions:
-        notificationLevel === "all" || notificationLevel === "mentions",
-      at_channel:
-        notificationLevel === "all" || notificationLevel === "channels",
-      device_type: "web",
-    };
+    const payload = buildNotificationPreferencePayload({
+      muteChannel,
+      notificationLevel,
+      threadReplies,
+    });
 
     await PostRequest(`/channels/${id}/notification-preference`, payload);
     setButtonLoading(false);
