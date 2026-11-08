@@ -29,6 +29,7 @@ const InviteModal = () => {
   const { state, dispatch } = useContext(DataContext);
   const { inviteModal, orgId } = state;
   const [buttonLoading, setButtonLoading] = useState(false);
+  const inviteSubmitInProgressRef = useRef(false);
   const [roleId, setRoleId] = useState("");
   const { hasPermission, status: rbacStatus } = useRBAC();
   const canInviteMembers = hasPermission("invite:members");
@@ -99,6 +100,8 @@ const InviteModal = () => {
 
   // submit emails
   const handleSubmit = async () => {
+    if (inviteSubmitInProgressRef.current) return;
+
     if (inputValue.trim()) {
       if (isValidEmail(inputValue.trim())) {
         addInvitee(inputValue.trim());
@@ -116,6 +119,7 @@ const InviteModal = () => {
       return;
     }
 
+    inviteSubmitInProgressRef.current = true;
     setButtonLoading(true);
 
     const payload = {
@@ -124,13 +128,16 @@ const InviteModal = () => {
       role_id: roleId,
     };
 
-    const res = await PostRequest("/invite", payload);
-    if (res?.status === 200 || res?.status === 201) {
-      showSuccess(res?.data?.message);
-      onClose();
+    try {
+      const res = await PostRequest("/invite", payload);
+      if (res?.status === 200 || res?.status === 201) {
+        showSuccess(res?.data?.message);
+        onClose();
+      }
+    } finally {
+      inviteSubmitInProgressRef.current = false;
+      setButtonLoading(false);
     }
-
-    setButtonLoading(false);
   };
 
   // One invite link per modal session, shared by Copy, WhatsApp and Share, so
@@ -339,7 +346,10 @@ const InviteModal = () => {
 
           <Button
             className="bg-[#7141F8] h-9 text-white px-7 w-full sm:w-auto"
-            disabled={invitees.length === 0 && inputValue.trim() === ""}
+            disabled={
+              buttonLoading ||
+              (invitees.length === 0 && inputValue.trim() === "")
+            }
             onClick={handleSubmit}
           >
             Send {buttonLoading && <Loading />}
