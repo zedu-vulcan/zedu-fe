@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteUrl } from "~/lib/env-urls";
 import { FeatureSection } from "./_components/home/FeatureSection";
 import HeroSection from "./_components/home/Herosection";
 import { ArticlesSection } from "./_components/home/ArticlesSection";
@@ -10,18 +11,35 @@ import { getHomeStructuredData } from "./_lib/homeStructuredData";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Zedu - Learning Platform for Bootcamps, Schools, and Cohorts",
+    absolute: "Zedu | One Workspace for Your Entire Cohort",
   },
   description:
-    "Zedu is an AI-powered education platform built for bootcamps and learning communities. Organize cohorts, run classes, manage communication, and scale modern learning in one workspace.",
+    "Stop juggling chat groups, meeting links and shared folders. Zedu puts your cohort's classes, conversations and resources in one workspace.",
   openGraph: {
-    title: "Zedu - Learning Platform for Bootcamps, Schools, and Cohorts",
+    title: "Zedu | One Workspace for Your Entire Cohort",
     description:
-      "Built for modern learning: structured channels, AI-powered support, flexible education pricing, and tools that help educators run better cohorts.",
-    url: "/",
+      "Stop juggling chat groups, meeting links and shared folders. Zedu puts your cohort's classes, conversations and resources in one workspace.",
+    url: siteUrl("/"),
+    siteName: "Zedu",
+    images: [
+      {
+        url: siteUrl("/og/zedu-home-share.png"),
+        width: 1200,
+        height: 630,
+        alt: "Zedu | One Workspace for Your Entire Cohort",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Zedu | One Workspace for Your Entire Cohort",
+    description:
+      "Stop juggling chat groups, meeting links and shared folders. Zedu puts your cohort's classes, conversations and resources in one workspace.",
+    images: [siteUrl("/og/zedu-home-share.png")],
   },
   alternates: {
-    canonical: "/",
+    canonical: siteUrl("/"),
   },
 };
 

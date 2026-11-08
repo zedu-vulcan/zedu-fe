@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { ReactNode } from "react";
-import { ogImageUrl, siteUrl } from "~/lib/env-urls";
+import { siteUrl } from "~/lib/env-urls";
 
 const description =
-  "Log in to Zedu to pick up your classes, channels and cohort conversations where you left off, all in one learning workspace.";
+  "Return to your classes, channels and cohort conversations in Zedu's shared learning workspace.";
 
 export const metadata: Metadata = {
   title: "Log in | Zedu",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: "Zedu",
     images: [
       {
-        url: ogImageUrl("og-image-5.png"),
+        url: siteUrl("/og/zedu-home-share.png"),
         width: 1200,
         height: 630,
         alt: "Zedu - learning communities in one workspace",
@@ -27,11 +27,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Log in | Zedu",
     description,
-    images: [ogImageUrl("og-image-5.png")],
+    images: [siteUrl("/og/zedu-home-share.png")],
   },
-  alternates: {
-    canonical: siteUrl("/auth/login"),
-  },
+  alternates: { canonical: siteUrl("/auth/login") },
   robots: {
     index: true,
     follow: true,
