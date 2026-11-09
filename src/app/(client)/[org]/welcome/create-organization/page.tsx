@@ -43,6 +43,7 @@ const CreateOrganization: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [buttonloading, setButtonloding] = useState(false);
+  const submitInProgressRef = useRef(false);
   const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(true);
   const [countries, setCountries] = useState<any>([]);
@@ -279,15 +280,11 @@ const CreateOrganization: React.FC = () => {
   };
 
   /**
-   * Handles form submission to create an organization and provision template channels.
-   * @param event Form submission event.
+   * Creates an organization and provisions its selected template channels.
    */
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
+  const submitOrganization = async () => {
     const token = localStorage.getItem("token") || "";
 
-    setButtonloding(true);
     setTemplateProvisionFailed(false);
 
     const activeTemplate =
@@ -404,6 +401,21 @@ const CreateOrganization: React.FC = () => {
     }
   };
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (submitInProgressRef.current) return;
+
+    submitInProgressRef.current = true;
+    setButtonloding(true);
+
+    try {
+      await submitOrganization();
+    } finally {
+      submitInProgressRef.current = false;
+      setButtonloding(false);
+    }
+  };
+
   //
 
   return (
@@ -511,6 +523,7 @@ const CreateOrganization: React.FC = () => {
 
                 <Button
                   type="submit"
+                  disabled={buttonloading}
                   className="w-full bg-blue-400 font-semibold my-3 py-6 px-10 text-white"
                 >
                   {buttonloading ? (
