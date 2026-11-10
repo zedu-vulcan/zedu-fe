@@ -11,6 +11,7 @@ import {
   SettingsIcon,
   UsersIcon,
   BanknoteIcon,
+  CalendarDays,
   Webhook,
   Palette,
   Layers,
@@ -30,6 +31,7 @@ import {
   type PermissionRequirement,
 } from "~/config/access-control";
 import { evaluatePermissionRequirement } from "~/components/rbac/RequirePermission";
+import { parseStoredAccordions } from "~/utils/stored-accordions";
 
 const ORG_NAV_ICONS: Record<string, React.ReactNode> = {
   general: <SettingsIcon className="w-5" />,
@@ -38,17 +40,19 @@ const ORG_NAV_ICONS: Record<string, React.ReactNode> = {
   webhooks: <Webhook className="w-5" />,
   "channel-management": <Layers className="w-5" />,
   billing: <BanknoteIcon className="w-5" />,
+  "demo-bookings": <CalendarDays className="w-5" />,
 };
 
 export default function SettingsNav() {
   const { state, dispatch } = useContext(DataContext);
   const [openAccordions, setOpenAccordions] = useState<string[]>(() => {
+    const defaults = ["personal", "organisation"];
     const saved =
       typeof window !== "undefined"
         ? localStorage.getItem("Accordions2")
         : null;
 
-    return saved ? JSON.parse(saved) : ["personal", "organisation"];
+    return parseStoredAccordions(saved, defaults);
   });
 
   const pathname = usePathname();
@@ -174,6 +178,9 @@ export default function SettingsNav() {
                       <div className="text-blue-50">{item.icon}</div>
                       <Link
                         href={item.link}
+                        aria-current={
+                          pathname === item.link ? "page" : undefined
+                        }
                         className={`text-sm leading-4 truncate w-full text-blue-50 ${pathname === item.link ? "text-white" : ""} `}
                       >
                         {item.title}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { campaignPayload } from "~/lib/campaign-attribution";
 import { Loader2, Mail } from "lucide-react";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
@@ -10,6 +11,10 @@ import { Textarea } from "~/components/ui/textarea";
 import { useToast } from "~/components/ui/use-toast";
 import { cn } from "~/lib/utils";
 import { contactSalesUrl } from "~/lib/env-urls";
+
+const phoneNumberPattern = /^\+?[0-9\s()-]+$/;
+
+const getPhoneDigits = (value: string) => value.replace(/\D/g, "");
 
 const contactSalesSchema = z.object({
   name: z
@@ -27,9 +32,13 @@ const contactSalesSchema = z.object({
     .trim()
     .min(1, "Phone number is required")
     .refine(
-      (value) => /^\d{10,15}$/.test(value.replace(/\D/g, "")),
-      "Please enter a valid phone number"
-    ),
+      (value) => phoneNumberPattern.test(value),
+      "Phone number can only contain digits and standard phone formatting"
+    )
+    .refine((value) => {
+      const digits = getPhoneDigits(value);
+      return digits.length >= 10 && digits.length <= 15;
+    }, "Phone number must contain between 10 and 15 digits"),
   message: z
     .string()
     .trim()
@@ -74,7 +83,11 @@ const getFormErrors = (data: ContactSalesFormData): FormErrors => {
   return nextErrors;
 };
 
-export const ContactSalesForm = () => {
+export const ContactSalesForm = ({
+  embedded = false,
+}: {
+  embedded?: boolean;
+}) => {
   const [formData, setFormData] =
     useState<ContactSalesFormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -110,8 +123,9 @@ export const ContactSalesForm = () => {
 
     setSending(true);
 
-    const normalizedPhone = formData.phone.replace(/\D/g, "");
+    const normalizedPhone = getPhoneDigits(formData.phone);
     const contactData = {
+      ...campaignPayload(),
       name: formData.name.trim(),
       email: formData.email.trim(),
       phone_number: normalizedPhone,
@@ -127,7 +141,12 @@ export const ContactSalesForm = () => {
         body: JSON.stringify(contactData),
       });
 
-      if (!response.ok) {
+      // Only the API's JSON reply counts: an HTML page that answers 200 means
+      // the request never reached the API.
+      const isApiReply = response.headers
+        .get("content-type")
+        ?.includes("application/json");
+      if (!response.ok || !isApiReply) {
         throw new Error("Failed to send message");
       }
 
@@ -152,7 +171,11 @@ export const ContactSalesForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full rounded-2xl bg-white p-4 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.12)] sm:p-6"
+      className={
+        embedded
+          ? "w-full"
+          : "w-full rounded-2xl bg-white p-4 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.12)] sm:p-6"
+      }
     >
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
         <div className="flex flex-col gap-1.5">
@@ -162,6 +185,7 @@ export const ContactSalesForm = () => {
           <Input
             id="name"
             name="name"
+            autoComplete="name"
             value={formData.name}
             onChange={(event) => updateField("name", event.target.value)}
             onBlur={() => validateField("name")}
@@ -185,6 +209,7 @@ export const ContactSalesForm = () => {
             id="email"
             name="email"
             type="email"
+            autoComplete="email"
             value={formData.email}
             onChange={(event) => updateField("email", event.target.value)}
             onBlur={() => validateField("email")}
@@ -207,6 +232,9 @@ export const ContactSalesForm = () => {
           <Input
             id="phone"
             name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
             value={formData.phone}
             onChange={(event) => updateField("phone", event.target.value)}
             onBlur={() => validateField("phone")}
